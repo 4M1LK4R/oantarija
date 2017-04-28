@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Iniciar Secion";
+}
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col s12 m3 l3"></div>
+        <div class="col s12 m6 l6">
+            <div class="card white-text light-blue-text text-darken-4">
+                <div class="card-content">
+                    <center>
+                        <span class="card-title">INICIAR SECIÓN</span>
+                        <img class="responsive-img" width="50%" src="~/Resources/images/otro_blue.png">
+                        <div class="row">
+                            
+                            
+                            <form method="post" action="/Cuenta/Login">
+                                <div class="input-field col s12">
+                                    <i class="icon-user prefix"></i>
+                                    <input type="text" name="nik" id="nik" class="validate" />
+                                    <label for="nik">Nombre de Usuario</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="icon-lock prefix"></i>
+                                    <input type="password" name="pass" id="pass" class="validate" />
+                                    <label for="pass">Contraseña</label>
+                                </div>
+
+                                <button class="waves-effect waves-light btn btn-block light-blue darken-4 btn-large" type="submit">
+                                    Iniciar Seción
+                                    <i class="icon-login"></i>
+                                </button>
+
+                            </form>
+
+
+                        </div>
+                    </center>
+                </div>
+                <div class="card-action">
+                    <a onclick="Nuevo();" class="grey-text">Registrarse</a>
+                    <a href="#" class="grey-text">¿Olvidaste tu contraseña?</a>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modalRegistro" class="modal">
+                    <div class="modal-content">
+                        <center>
+                            <h4>Regístrate</h4>
+                            <div class="row">
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="icon-mail prefix"></i>
+                                    <input id="correoRe" type="email" class="validate">
+                                    <label for="correoRe">Correo</label>
+                                </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="icon-user prefix"></i>
+                                    <input id="nombreRe" type="text" class="validate">
+                                    <label for="nombreRe">Nombre</label>
+                                </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="icon-user prefix"></i>
+                                    <input id="apellidoRe" type="text" class="validate">
+                                    <label for="apellidoRe">Apellido</label>
+                                </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="icon-lock prefix"></i>
+                                    <input id="passRe" type="password" class="validate">
+                                    <label for="passRe">Contraseña</label>
+                                </div>
+                                <br><br><br>
+                                <hr> o con tu red social.
+                                <br><br>
+                                <div class="col s12 m12 l12">
+                                    <a class="waves-effect waves-light red btn"><i class="icon-gplus left"></i>GOOGLE</a>
+                                    <a class="waves-effect waves-light blue darken-4 btn"><i class="icon-facebook left"></i>FACEBOOK</a>
+                                </div>
+
+                            </div>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="aceptar" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">Aceptar</a>
+                        <a id="cancelar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m3 l3"></div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/cuenta")
+}

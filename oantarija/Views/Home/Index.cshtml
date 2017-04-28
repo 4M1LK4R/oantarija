@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="white-text">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br><br><br><br>
+                <h1 class="header center white-text">Observatorio Astronómico Nacional</h1>
+                <h1 class="header center white-text">Tarija</h1>
+                <br><br><br><br>
+
+            </div>
+        </div>
+        <div class="parallax"><img src="~/Resources/images/parallax/1parallax.jpg" alt="Unsplashed background img 1"></div>
+    </div>
+
+
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-users"></i></h2>
+                    <h5 class="center">¿Quiénes somos?</h5>
+                    <p class="center light">Conosca quienes somos.</p>
+                    <p class="center">@Html.ActionLink("ver más", "About", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-flow-tree"></i></h2>
+                    <h5 class="center">Nuestro equipo</h5>
+                    <p class="center light">Conosca nuestro equipo.</p>
+                    <p class="center">@Html.ActionLink("ver más", "Team", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-direction"></i></h2>
+                    <h5 class="center">Contáctanos</h5>
+                    <p class="center light">Conoce nuestra dirección y telefono.</p>
+                    <p class="center">@Html.ActionLink("ver más", "Contact", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="row center">
+                    <h5 class="header col s12 light">Obserbatorio Astronómico Nacional Tarija</h5>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img src="~/Resources/images/parallax/2parallax.jpg" alt="Unsplashed background img 2"></div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-bus"></i></h2>
+                    <h5 class="center">Reservar visita</h5>
+                    <p class="center light">Programa una vista, elige un tema, horario.</p>
+                    <p class="center">@Html.ActionLink("ver más", "Index", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-list-alt"></i></h2>
+                    <h5 class="center">Participar en foros</h5>
+                    <p class="center light">Participa en foros.</p>
+                    <p class="center">@Html.ActionLink("ver más", "Index", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+                <div class="col s12 m4">
+                    <br />
+                    <h2 class="center"><i class="icon-edit"></i></h2>
+                    <h5 class="center">Documentar trabajo de observación</h5>
+                    <p class="center light">Comparte tus investigaciones y observaciones.</p>
+                    <p class="center">@Html.ActionLink("ver más", "Index", "Home", null, new { @class = "btn waves-effect" })</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="parallax-container valign-wrapper">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <div class="row center">
+                    <h5 class="header col s12 light">Obserbatorio Astronómico Nacional Tarija</h5>
+                </div>
+            </div>
+        </div>
+        <div class="parallax"><img src="~/Resources/images/parallax/3parallax.jpg" alt="Unsplashed background img 3"></div>
+    </div>
+</div>

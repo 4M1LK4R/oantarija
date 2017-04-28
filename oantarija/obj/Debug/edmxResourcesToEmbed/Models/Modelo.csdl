@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="oantarijaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="boletin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="envio" Relationship="Self.envio_ibfk_1" FromRole="boletin" ToRole="envio" />
+  </EntityType>
+  <EntityType Name="curso">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="inscripcion" Relationship="Self.inscripcion_ibfk_2" FromRole="curso" ToRole="inscripcion" />
+  </EntityType>
+  <EntityType Name="detalle_registro_meteo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="registro_meteo" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="registro_meteo1" Relationship="Self.detalle_registro_meteo_ibfk_1" FromRole="detalle_registro_meteo" ToRole="registro_meteo" />
+  </EntityType>
+  <EntityType Name="detalle_registro_sol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="registro_sol" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="registro_sol1" Relationship="Self.detalle_registro_sol_ibfk_1" FromRole="detalle_registro_sol" ToRole="registro_sol" />
+  </EntityType>
+  <EntityType Name="disertante">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="fecharegistro" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="persona" Relationship="Self.disertante_ibfk_1" FromRole="disertante" ToRole="persona" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_4" FromRole="disertante" ToRole="reserva" />
+  </EntityType>
+  <EntityType Name="envio">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="boletin" Type="Int32" Nullable="false" />
+    <Property Name="suscripcion" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="boletin1" Relationship="Self.envio_ibfk_1" FromRole="envio" ToRole="boletin" />
+    <NavigationProperty Name="suscripcion1" Relationship="Self.envio_ibfk_2" FromRole="envio" ToRole="suscripcion" />
+  </EntityType>
+  <EntityType Name="horario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="horainicio" Type="Time" Nullable="false" />
+    <Property Name="horafin" Type="Time" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_1" FromRole="horario" ToRole="reserva" />
+  </EntityType>
+  <EntityType Name="inscripcion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario" Type="Int32" Nullable="false" />
+    <Property Name="curso" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="curso1" Relationship="Self.inscripcion_ibfk_2" FromRole="inscripcion" ToRole="curso" />
+    <NavigationProperty Name="usuario1" Relationship="Self.inscripcion_ibfk_1" FromRole="inscripcion" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="persona">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="disertante" Relationship="Self.disertante_ibfk_1" FromRole="persona" ToRole="disertante" />
+    <NavigationProperty Name="usuario" Relationship="Self.usuario_ibfk_1" FromRole="persona" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="registro_meteo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="documento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="detalle_registro_meteo" Relationship="Self.detalle_registro_meteo_ibfk_1" FromRole="registro_meteo" ToRole="detalle_registro_meteo" />
+    <NavigationProperty Name="usuario1" Relationship="Self.registro_meteo_ibfk_1" FromRole="registro_meteo" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="registro_sol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="detalle_registro_sol" Relationship="Self.detalle_registro_sol_ibfk_1" FromRole="registro_sol" ToRole="detalle_registro_sol" />
+    <NavigationProperty Name="usuario1" Relationship="Self.registro_sol_ibfk_1" FromRole="registro_sol" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="reserva">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="vehiculo" Type="Boolean" Nullable="false" />
+    <Property Name="horario" Type="Int32" Nullable="false" />
+    <Property Name="usuario" Type="Int32" Nullable="false" />
+    <Property Name="tema" Type="Int32" Nullable="false" />
+    <Property Name="disertante" Type="Int32" Nullable="false" />
+    <Property Name="tipo_grupo" Type="Int32" Nullable="false" />
+    <Property Name="sala" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="disertante1" Relationship="Self.reserva_ibfk_4" FromRole="reserva" ToRole="disertante" />
+    <NavigationProperty Name="horario1" Relationship="Self.reserva_ibfk_1" FromRole="reserva" ToRole="horario" />
+    <NavigationProperty Name="usuario1" Relationship="Self.reserva_ibfk_2" FromRole="reserva" ToRole="usuario" />
+    <NavigationProperty Name="tema1" Relationship="Self.reserva_ibfk_3" FromRole="reserva" ToRole="tema" />
+    <NavigationProperty Name="tipo_grupo1" Relationship="Self.reserva_ibfk_5" FromRole="reserva" ToRole="tipo_grupo" />
+    <NavigationProperty Name="sala1" Relationship="Self.reserva_ibfk_6" FromRole="reserva" ToRole="sala" />
+    <NavigationProperty Name="visita" Relationship="Self.visita_ibfk_1" FromRole="reserva" ToRole="visita" />
+  </EntityType>
+  <EntityType Name="rol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="usuario" Relationship="Self.usuario_ibfk_2" FromRole="rol" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="sala">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="capacidad" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_6" FromRole="sala" ToRole="reserva" />
+  </EntityType>
+  <EntityType Name="suscripcion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecharegistro" Type="DateTime" Nullable="false" />
+    <Property Name="usuario" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="envio" Relationship="Self.envio_ibfk_2" FromRole="suscripcion" ToRole="envio" />
+    <NavigationProperty Name="usuario1" Relationship="Self.suscripcion_ibfk_1" FromRole="suscripcion" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="tema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecharegistro" Type="DateTime" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_3" FromRole="tema" ToRole="reserva" />
+  </EntityType>
+  <EntityType Name="tipo_grupo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_5" FromRole="tipo_grupo" ToRole="reserva" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="rol" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="inscripcion" Relationship="Self.inscripcion_ibfk_1" FromRole="usuario" ToRole="inscripcion" />
+    <NavigationProperty Name="persona" Relationship="Self.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
+    <NavigationProperty Name="registro_meteo" Relationship="Self.registro_meteo_ibfk_1" FromRole="usuario" ToRole="registro_meteo" />
+    <NavigationProperty Name="registro_sol" Relationship="Self.registro_sol_ibfk_1" FromRole="usuario" ToRole="registro_sol" />
+    <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_2" FromRole="usuario" ToRole="reserva" />
+    <NavigationProperty Name="rol1" Relationship="Self.usuario_ibfk_2" FromRole="usuario" ToRole="rol" />
+    <NavigationProperty Name="suscripcion" Relationship="Self.suscripcion_ibfk_1" FromRole="usuario" ToRole="suscripcion" />
+  </EntityType>
+  <EntityType Name="visita">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="reserva" Relationship="Self.visita_ibfk_1" FromRole="visita" ToRole="reserva" />
+  </EntityType>
+  <Association Name="envio_ibfk_1">
+    <End Role="boletin" Type="Self.boletin" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="envio" Type="Self.envio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="boletin">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="envio">
+        <PropertyRef Name="boletin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="inscripcion_ibfk_2">
+    <End Role="curso" Type="Self.curso" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="inscripcion" Type="Self.inscripcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="inscripcion">
+        <PropertyRef Name="curso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detalle_registro_meteo_ibfk_1">
+    <End Role="registro_meteo" Type="Self.registro_meteo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="detalle_registro_meteo" Type="Self.detalle_registro_meteo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="registro_meteo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detalle_registro_meteo">
+        <PropertyRef Name="registro_meteo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detalle_registro_sol_ibfk_1">
+    <End Role="registro_sol" Type="Self.registro_sol" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="detalle_registro_sol" Type="Self.detalle_registro_sol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="registro_sol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="detalle_registro_sol">
+        <PropertyRef Name="registro_sol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="disertante_ibfk_1">
+    <End Role="persona" Type="Self.persona" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="disertante" Type="Self.disertante" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="disertante">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_4">
+    <End Role="disertante" Type="Self.disertante" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="disertante">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="disertante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="envio_ibfk_2">
+    <End Role="suscripcion" Type="Self.suscripcion" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="envio" Type="Self.envio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suscripcion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="envio">
+        <PropertyRef Name="suscripcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_1">
+    <End Role="horario" Type="Self.horario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="horario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="horario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="inscripcion_ibfk_1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="inscripcion" Type="Self.inscripcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="inscripcion">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="usuario_ibfk_1">
+    <End Role="persona" Type="Self.persona" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="registro_meteo_ibfk_1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="registro_meteo" Type="Self.registro_meteo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="registro_meteo">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="registro_sol_ibfk_1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="registro_sol" Type="Self.registro_sol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="registro_sol">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_2">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_3">
+    <End Role="tema" Type="Self.tema" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="tema" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_5">
+    <End Role="tipo_grupo" Type="Self.tipo_grupo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_grupo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="tipo_grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="reserva_ibfk_6">
+    <End Role="sala" Type="Self.sala" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reserva" Type="Self.reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sala">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reserva">
+        <PropertyRef Name="sala" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="visita_ibfk_1">
+    <End Role="reserva" Type="Self.reserva" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="visita" Type="Self.visita" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="reserva">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="visita">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="usuario_ibfk_2">
+    <End Role="rol" Type="Self.rol" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rol">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="suscripcion_ibfk_1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="suscripcion" Type="Self.suscripcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="suscripcion">
+        <PropertyRef Name="usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="oantarijaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="boletin" EntityType="Self.boletin" />
+    <EntitySet Name="curso" EntityType="Self.curso" />
+    <EntitySet Name="detalle_registro_meteo" EntityType="Self.detalle_registro_meteo" />
+    <EntitySet Name="detalle_registro_sol" EntityType="Self.detalle_registro_sol" />
+    <EntitySet Name="disertante" EntityType="Self.disertante" />
+    <EntitySet Name="envio" EntityType="Self.envio" />
+    <EntitySet Name="horario" EntityType="Self.horario" />
+    <EntitySet Name="inscripcion" EntityType="Self.inscripcion" />
+    <EntitySet Name="persona" EntityType="Self.persona" />
+    <EntitySet Name="registro_meteo" EntityType="Self.registro_meteo" />
+    <EntitySet Name="registro_sol" EntityType="Self.registro_sol" />
+    <EntitySet Name="reserva" EntityType="Self.reserva" />
+    <EntitySet Name="rol" EntityType="Self.rol" />
+    <EntitySet Name="sala" EntityType="Self.sala" />
+    <EntitySet Name="suscripcion" EntityType="Self.suscripcion" />
+    <EntitySet Name="tema" EntityType="Self.tema" />
+    <EntitySet Name="tipo_grupo" EntityType="Self.tipo_grupo" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <EntitySet Name="visita" EntityType="Self.visita" />
+    <AssociationSet Name="envio_ibfk_1" Association="Self.envio_ibfk_1">
+      <End Role="boletin" EntitySet="boletin" />
+      <End Role="envio" EntitySet="envio" />
+    </AssociationSet>
+    <AssociationSet Name="inscripcion_ibfk_2" Association="Self.inscripcion_ibfk_2">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="inscripcion" EntitySet="inscripcion" />
+    </AssociationSet>
+    <AssociationSet Name="detalle_registro_meteo_ibfk_1" Association="Self.detalle_registro_meteo_ibfk_1">
+      <End Role="registro_meteo" EntitySet="registro_meteo" />
+      <End Role="detalle_registro_meteo" EntitySet="detalle_registro_meteo" />
+    </AssociationSet>
+    <AssociationSet Name="detalle_registro_sol_ibfk_1" Association="Self.detalle_registro_sol_ibfk_1">
+      <End Role="registro_sol" EntitySet="registro_sol" />
+      <End Role="detalle_registro_sol" EntitySet="detalle_registro_sol" />
+    </AssociationSet>
+    <AssociationSet Name="disertante_ibfk_1" Association="Self.disertante_ibfk_1">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="disertante" EntitySet="disertante" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_4" Association="Self.reserva_ibfk_4">
+      <End Role="disertante" EntitySet="disertante" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="envio_ibfk_2" Association="Self.envio_ibfk_2">
+      <End Role="suscripcion" EntitySet="suscripcion" />
+      <End Role="envio" EntitySet="envio" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_1" Association="Self.reserva_ibfk_1">
+      <End Role="horario" EntitySet="horario" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="inscripcion_ibfk_1" Association="Self.inscripcion_ibfk_1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="inscripcion" EntitySet="inscripcion" />
+    </AssociationSet>
+    <AssociationSet Name="usuario_ibfk_1" Association="Self.usuario_ibfk_1">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <AssociationSet Name="registro_meteo_ibfk_1" Association="Self.registro_meteo_ibfk_1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="registro_meteo" EntitySet="registro_meteo" />
+    </AssociationSet>
+    <AssociationSet Name="registro_sol_ibfk_1" Association="Self.registro_sol_ibfk_1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="registro_sol" EntitySet="registro_sol" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_2" Association="Self.reserva_ibfk_2">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_3" Association="Self.reserva_ibfk_3">
+      <End Role="tema" EntitySet="tema" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_5" Association="Self.reserva_ibfk_5">
+      <End Role="tipo_grupo" EntitySet="tipo_grupo" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="reserva_ibfk_6" Association="Self.reserva_ibfk_6">
+      <End Role="sala" EntitySet="sala" />
+      <End Role="reserva" EntitySet="reserva" />
+    </AssociationSet>
+    <AssociationSet Name="visita_ibfk_1" Association="Self.visita_ibfk_1">
+      <End Role="reserva" EntitySet="reserva" />
+      <End Role="visita" EntitySet="visita" />
+    </AssociationSet>
+    <AssociationSet Name="usuario_ibfk_2" Association="Self.usuario_ibfk_2">
+      <End Role="rol" EntitySet="rol" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <AssociationSet Name="suscripcion_ibfk_1" Association="Self.suscripcion_ibfk_1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="suscripcion" EntitySet="suscripcion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

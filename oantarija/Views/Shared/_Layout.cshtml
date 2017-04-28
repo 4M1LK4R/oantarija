@@ -1,0 +1,72 @@
+﻿@using oantarija.Models;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OANTarija</title>
+    @Styles.Render("~/MaterializeFontello")
+
+    <meta name="theme-color" content="#01579b">
+    <link rel="shortcut icon" href="~/Resources/images/oantarija.ico">
+</head>
+<body class="blue-grey darken-4">
+
+    @{
+        oantarijaEntities BD = new oantarijaEntities();
+        if (Request.IsAuthenticated)
+        {
+            var usu = BD.usuario.Single(o => o.correo == User.Identity.Name);
+            if (usu.rol == 1)
+            {
+                @Html.Partial("_MenuAdmin")
+            }
+            if (usu.rol == 2)
+            {
+                @Html.Partial("_MenuUser")
+            }
+        }
+        else
+        {
+            @Html.Partial("_MenuStandar")
+        }
+    }
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="page-footer light-blue darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">OANTarija</h5>
+                    <p class="grey-text text-lighten-4">Enlaces relacionados.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Enlaces</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright light-blue darken-3">
+            <div class="container">
+                &copy; @DateTime.Now.Year - OANTarija
+                <a class="grey-text text-lighten-4 right" href="#!">Website developed by Amilkar Dominguez</a>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Resources/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Resources/plugins/jquery/jquery.numeric.js"></script>
+    <script src="~/Resources/plugins/materialize/js/materialize.js"></script>
+    <script src="~/Resources/plugins/materialize/js/init.js"></script>
+    <script src="~/Resources/plugins/datatable/js/init.datable.js"></script>
+    <script src="~/Resources/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

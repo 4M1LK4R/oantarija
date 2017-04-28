@@ -1,0 +1,70 @@
+﻿<header>
+    <div class="navbar-fixed">
+        <nav class="light-blue darken-4">
+            <a href="#!" data-activates="menuLateral" class="button-collapse top-nav full hide-on-large-only white-text waves-effect"><i class="icon-menu"></i></a>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><i class="icon-mist"></i>OANTarija</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a id="AbriMenu" class="light-blue darken-3"><i class="icon-menu"></i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <ul id="menuLateral" class="side-nav white-text light-blue darken-4">
+        <li class="logo light-blue darken-4 z-depth-1">
+            <div class="row">
+                <div class="col s6">
+                    <h2><img src="~/Resources/images/ciencia.png" class="responsive-img"></h2>
+                </div>
+                <div class="col s6">
+                    <h2 class="btn-block waves-effect waves-light light-blue darken-4 white-text" onclick="CerrarSideNav();"><i class="icon-cancel-1"></i></h2>
+                </div>
+            </div>
+            <div class="row">
+                <center>
+                    @User.Identity.Name
+                    <br />
+                </center>
+            </div>
+        </li>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="icon-home"></i>@Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "white-text" })</div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="icon-users"></i>@Html.ActionLink("¿Quiénes somos?", "About", "Home", null, new { @class = "white-text" })</div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="icon-flow-tree"></i>@Html.ActionLink("Nuestro equipo", "Team", "Home", null, new { @class = "white-text" })</div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="icon-direction"></i>@Html.ActionLink("Contáctanos", "Contact", "Home", null, new { @class = "white-text" })</div>
+            </li>
+
+            <li>
+                <div class="collapsible-header"><i class="icon-sliders"></i>Panel Administrativo</div>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a class="light-blue-text text-darken-4" href="/Rol/">Roles</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Boletin/">Boletines</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Curso/">Cursos</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Horario/">Horarios</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Sala/">Salas</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Disertante/">Disertantes</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/Tema/">Temas</a></li>
+                        <li><a class="light-blue-text text-darken-4" href="/TipoGrupo/">Tipos de Grupo</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="icon-user-1"></i>Cuenta</div>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a class="light-blue-text text-darken-4" href="/Cuenta/Logout">Cerrar Secion</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </ul>
+</header>
+

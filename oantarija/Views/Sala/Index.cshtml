@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Salas";
+}
+<div class="container">
+
+    <div class="row">
+        <center>
+            <h3 class="white-text">SALAS</h3>
+            <p class="white-text flow-text">Administracion de salas.</p>
+        </center>
+        <hr>
+        <br>
+        <div class="col s12 m12 l12">
+            <center>
+                <p class="white-text flow-text">Salas registrados</p>
+            </center>
+            <a id="btnListar" onclick="CrearDataTable();" class="btn teal waves-effect"><i class="icon-list-numbered"></i>Mostrar Salas</a>
+        </div>
+    </div>
+    <div class="row white">
+        <div class="col s12 m12 l12">
+            <div id="tabla" class="amk">
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal" onclick="Nuevo();">
+            <i class="large icon-plus-1"></i>
+        </a>
+    </div>
+
+</div>
+<!-- Modal Structure Reserva-->
+<div id="modalSala" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <center>
+            <div id="cabeceraModal">
+            </div>
+            <div class="row">
+                <input id="id" type="text" hidden value="0">
+                <div class="input-field col s12 m6 l6">
+                    <i class="icon-right-dir prefix"></i>
+                    <input id="nombre" type="text">
+                    <label for="nombre">Nombre</label>
+                </div>
+                <div class="input-field col s12 m6 l6">
+                    <i class="icon-right-dir prefix"></i>
+                    <input id="capacidad" type="text">
+                    <label for="capacidad">Capacidad</label>
+                </div>
+            </div>
+            <p class="grey-text">Estado:</p>
+            <div class="row">                
+                <div class="col s6 m6 l6">                    
+                        <input name="group1" type="radio" id="activo"/>
+                        <label for="activo">Activo</label>
+                </div>
+                <div class="col s6 m6 l6">
+                        <input name="group1" type="radio" id="inactivo"/>
+                        <label for="inactivo">Inactivo</label>
+                </div>
+            </div>
+
+        </center>
+    </div>
+    <div class="modal-footer blue-grey darken-4">
+        <a id="aceptar" class="waves-effect waves-green btn-flat green white-text">Aceptar</a>
+        <a id="cancelar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Cancelar</a>
+    </div>
+</div>
+
+
+
+
+<div id="modalEliminar" class="modal">
+    <div class="modal-content">
+        <center>
+            <div id="cabeceraModalEliminar">
+            </div>
+            <input type="text" id="idEliminar" hidden/>
+            <input type="text" id="nomEliminar" hidden/>
+        </center>
+    </div>
+    <div class="modal-footer blue-grey darken-4">
+        <a id="aceptarEliminar" class="waves-effect waves-green btn-flat green white-text">Aceptar</a>
+        <a id="cancelarEliminar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Cancelar</a>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/salas")
+}

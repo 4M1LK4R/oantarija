@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OANTarija</title>
+    <link href="~/Resources/plugins/materialize/css/materialize.css" rel="stylesheet" />
+    <link href="~/Resources/plugins/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="~/Resources/plugins/css/main.css" rel="stylesheet" />
+    <link href="~/Resources/plugins/css/style.css" rel="stylesheet" />
+    <meta name="theme-color" content="#01579b">
+    <link rel="shortcut icon" href="~/Resources/images/oantarija.ico">
+    @*@Styles.Render("~/Resources/plugins/materialize/css/materialize.css")
+        @Styles.Render("~/Resources/plugins/fontello/css/fontello.css")
+        @Styles.Render("~/Resources/plugins/css/main.css")*@
+</head>
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Nombre de aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>*@
+<body class="blue-grey darken-4">
+    <header>
+        <div class="navbar-fixed">
+            <nav class="light-blue darken-4">
+                <a href="#!" data-activates="menuLateral" class="button-collapse top-nav full hide-on-large-only white-text waves-effect"><i class="icon-menu"></i></a>
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo"><i class="icon-mist"></i>OANTarija</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a id="AbriMenu" class="pulse light-blue darken-3"><i class="icon-menu"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <ul id="menuLateral" class="side-nav white-text light-blue darken-4">
+            <li class="logo light-blue darken-4 z-depth-1">
+                <div class="row">
+                    <div class="col s6">
+                        <h2><img src="~/Resources/images/ciencia.png" class="responsive-img"></h2>
+                    </div>
+                    <div class="col s6">
+                        <h2 class="btn-block waves-effect waves-light light-blue darken-4 white-text" onclick="CerrarSideNav();"><i class="icon-cancel-1"></i></h2>
+                    </div>
+                </div>
+            </li>
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header"><i class="icon-home"></i>Inicio</div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="icon-edit"></i>Reservar Visita</div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="icon-users-1"></i>Foro</div>
+                </li>
+
+                <li>
+                    <div class="collapsible-header"><i class="icon-user-1"></i>Cuenta</div>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li class="light-blue-text text-darken-4">@Html.ActionLink("Iniciar Secion", "Index", "Cuenta")</li>
+                            <li><a href="#!" class="light-blue-text text-darken-4">Ajustes de cuenta</a></li>
+                            <li><a href="#!" class="light-blue-text text-darken-4">Cerrar cesión</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="page-footer light-blue darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">OANTarija</h5>
+                    <p class="grey-text text-lighten-4">Enlaces relacionados.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Enlaces</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright light-blue darken-4">
+            <div class="container">
+                &copy; @DateTime.Now.Year - OANTarija
+                <a class="grey-text text-lighten-4 right" href="#!">Website developed by amilkar dominguez</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="~/Resources/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Resources/plugins/materialize/js/materialize.js"></script>
+    <script src="~/Resources/plugins/js/reservar-visita.js"></script>
+    <script src="~/Resources/plugins/materialize/js/init.js"></script>
+</body>
+</html>
+
