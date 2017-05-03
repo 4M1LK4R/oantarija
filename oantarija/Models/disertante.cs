@@ -17,7 +17,7 @@ namespace oantarija.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public disertante()
         {
-            this.reserva = new HashSet<reserva>();
+            this.tema = new HashSet<tema>();
         }
     
         public int id { get; set; }
@@ -25,6 +25,6 @@ namespace oantarija.Models
     
         public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<reserva> reserva { get; set; }
+        public virtual ICollection<tema> tema { get; set; }
     }
 }

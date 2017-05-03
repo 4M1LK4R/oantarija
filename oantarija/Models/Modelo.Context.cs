@@ -25,10 +25,12 @@ namespace oantarija.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<adicionar_reserva> adicionar_reserva { get; set; }
         public virtual DbSet<boletin> boletin { get; set; }
         public virtual DbSet<curso> curso { get; set; }
         public virtual DbSet<detalle_registro_meteo> detalle_registro_meteo { get; set; }
         public virtual DbSet<detalle_registro_sol> detalle_registro_sol { get; set; }
+        public virtual DbSet<detalle_reserva_tema> detalle_reserva_tema { get; set; }
         public virtual DbSet<disertante> disertante { get; set; }
         public virtual DbSet<envio> envio { get; set; }
         public virtual DbSet<horario> horario { get; set; }

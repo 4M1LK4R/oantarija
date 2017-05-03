@@ -32,6 +32,8 @@ function CargarEstadoEnChck(flag) {
 
 
 function Nuevo() {
+    $('select').material_select('destroy');
+    $('select').material_select();
     LimpiarCampos();
     est = true;   
     CargarEstadoEnChck(est);
@@ -99,11 +101,16 @@ function Editar(id) {
     var o = { id: id };
     $.getJSON("/Horario/GetHorario", o, function (obj) {
         var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR HORARIO ' + obj.nombre + '</p>';
+        //console.log(obj);
+
         $('#cabeceraModal').html(codigo);
         $("#id").val(id);
         $("#nombre").val(obj.nombre);
-        $('#hInicio').val(obj.h_inicio);
-        $('#hFin').val(obj.h_fin);
+
+        $('select').material_select('destroy');
+        $('select').material_select();
+        //$('#hInicio').val(obj.h_inicio);
+        //$('#hFin').val(obj.h_fin);
         est = obj.estado;
         CargarEstadoEnChck(est);
         //Activar Campos
@@ -118,8 +125,7 @@ function Editar(id) {
 function LimpiarCampos() {
     $('#id').val(0);
     $('#nombre').val('');
-    $('select').material_select('destroy');
-    $('select').material_select();   
+ 
 };
 function ListarHorarios() {
     $.getJSON("/Horario/ListarHorarios", null, function (cadena) {
@@ -142,7 +148,7 @@ function ModalConfirmar(id, nom) {
 $('#aceptarEliminar').click(function () {
     Eliminar($('#idEliminar').val());
     $('#modalEliminar').modal('close');
-    Materialize.toast('El tipo de grupo fue eliminado exitosamente!', 8000);
+    Materialize.toast('El horario fue eliminado exitosamente!', 8000);
     ListarHorarios();
 });
 $('#cancelarEliminar').click(function () {

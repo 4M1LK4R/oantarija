@@ -3,8 +3,11 @@ var v = true;
 //Restringir Numeros
 $(document).ready(function () {
     ListarReservas();
+    ListarHorarios();
+    ListarTemas();
+    ListarTG();
     $('#cantidad').numeric();
-    $('#cantidadProponer').numeric();    
+    $('#cantidadProponer').numeric();
 })
 $('#activo').click(function () {
     est = true;
@@ -43,11 +46,11 @@ function Nuevo() {
     $('#modalDatos').modal('open');
     var codigo = '<p class="light-blue-text text-darken-4 flow-text">NUEVA RESERVA</p>';
     $('#cabeceraModal').html(codigo);
-    ListarCampos();
+    //ListarCampos();
 };
 $('#aceptar').click(function () {
     if (EvaluarVacios()) {
-       Guardar();
+        Guardar();
     }
 });
 $('#cancelar').click(function () {
@@ -55,10 +58,6 @@ $('#cancelar').click(function () {
     $('#modalDatos').modal('close');
 });
 function EvaluarVacios() {
-    if ($('#cantidad').val() == '') {
-        Materialize.toast('El campo cantidad no puede estar vacio!', 8000);
-        return false;
-    }
     if ($('#selectFechaModal').val() == '') {
         Materialize.toast('El campo fecha no puede estar vacio!', 8000);
         return false;
@@ -71,16 +70,12 @@ function EvaluarVacios() {
         Materialize.toast('Debe seleccionar un tema!', 8000);
         return false;
     }
-    if ($('#selectDisertante').val() == null) {
-        Materialize.toast('Debe seleccionar un disertante!', 8000);
+    if ($('#cantidad').val() == '') {
+        Materialize.toast('El campo cantidad no puede estar vacio!', 8000);
         return false;
     }
-    if ($('#selectTipoGrupo').val() == null) {
+    if ($('#selectTG').val() == null) {
         Materialize.toast('Debe seleccionar un tipo de grupo!', 8000);
-        return false;
-    }
-    if ($('#selectSala').val() == null) {
-        Materialize.toast('Debe seleccionar una Sala!', 8000);
         return false;
     }
     else {
@@ -88,29 +83,36 @@ function EvaluarVacios() {
     }
 };
 function Guardar() {
+
     var i = $('#id').val();
     var fech = $('#selectFechaModal').val();
-    var can = $('#cantidad').val();
     var hor = $('#selectHorario').val();
-    var usu = $('#usu').val();
     var tem = $('#selectTema').val();
-    var dis = $('#selectDisertante').val();
-    var tg = $('#selectTipoGrupo').val();
-    var sal = $('#selectSala').val();
-
-    //int id, string fecha, int cantidad, bool vehiculo, int horario,string usuario, int tema,int disertante,int tipogrupo,int sala, bool estado
-    $.getJSON("/Reserva/GuardarReserva", { id: i, fecha: fech, cantidad: can, vehiculo: v, horario: hor, usuario: usu, tema: tem, disertante: dis, tipogrupo: tg, sala: sal,estado:est }, function (e) {
+    var can = $('#cantidad').val();  
+    var tipgru = $('#selectTG').val();
+    var usu = $('#usu').val();
+    //int id
+    //string fecha
+    //int horario
+    //string temas
+    //int cantidad
+    //int tg
+    //bool vehiculo
+    //string usuario
+    //bool estado
+    alert(tem.toString());
+    $.getJSON("/Reserva/GuardarReserva", { id: i, fecha: fech, horario: hor, temas: tem.toString(), cantidad: can, tg: tipgru, vehiculo: v, usuario: usu, estado: est }, function (e) {
         if (e != "") {
             if (e.err == "proponer") {
                 alert('proponer');
                 console.log(e);
                 $('#idReservaProponer').val(e.iid);
                 $('#Disponible').val((e.salcapacidad - e.can));
-                var cadena = '<p>Fecha: ' + e.fech + '</p>';
-                cadena += '<p>Horario: ' + e.hor + '</p>';
-                cadena += '<p>Sala: ' + e.sal + '</p>';
-                cadena += '<p>Personas: ' + e.can + '</p>';
-                cadena += '<p>Cupos disponibles: ' + (e.salcapacidad - e.can) + '</p>';
+                //var cadena = '<p>Fecha: ' + e.fech + '</p>';
+                //cadena += '<p>Horario: ' + e.hor + '</p>';
+                //cadena += '<p>Sala: ' + e.sal + '</p>';
+                //cadena += '<p>Personas: ' + e.can + '</p>';
+                //cadena += '<p>Cupos disponibles: ' + (e.salcapacidad - e.can) + '</p>';
                 $('#ContenidoProponer').html(cadena);
                 //'La Fecha: ' + fech + ' en el Horario: ' + hor + ' en la Sala: ' + sal + ' con ' + can + ' Personas'
                 $('#modalProponer').modal('open');
@@ -133,7 +135,7 @@ $('#aceptarProponer').click(function () {
     var id = $('#idReservaProponer').val();
     var disponible = $('#Disponible').val();
     var cantidad = $('#cantidadProponer').val();
-    if (cantidad < (disponible+1)) {
+    if (cantidad < (disponible + 1)) {
 
         $.getJSON("/Reserva/AdicionarReserva", { id: id, cantidad: $('#cantidadProponer').val() }, function (e) { });
         Materialize.toast('Se Adiciono correctamente!', 8000);
@@ -141,12 +143,8 @@ $('#aceptarProponer').click(function () {
         $('#modalDatos').modal('close');
     }
     else {
-        Materialize.toast('Solo puede agregar '+disponible+' personas!', 8000);
+        Materialize.toast('Solo puede agregar ' + disponible + ' personas!', 8000);
     }
-    //Eliminar($('#idEliminar').val());
-    //$('#modalProponer').modal('close');
-    //Materialize.toast('La Reserva fue eliminada exitosamente!', 8000);
-    //ListarReservas();
 });
 $('#cancelarProponer').click(function () {
     $('#idEliminar').val('');
@@ -161,19 +159,17 @@ function Editar(id) {
     $.getJSON("/Reserva/GetReserva", o, function (obj) {
         var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR RESERVA</p>';
         $('#cabeceraModal').html(codigo);
-        ListarCampos();
         console.log(obj);
-        $("#id").val(id);
-        var i = $('#id').val();
-        var fech = $('#selectFechaModal').val(obj.fech);
-        var can = $('#cantidad').val(obj.can);
-        CargarVehiculoEnChck(obj.veh);
-        var hor = $('#selectHorario').val(obj.hor);
-        var usu = $('#usu').val(obj.usu);
-        var tem = $('#selectTema').val(obj.tem);
-        var dis = $('#selectDisertante').val(obj.dis);
-        var tg = $('#selectTipoGrupo').val(obj.tg);
-        var sal = $('#selectSala').val(obj.sal);
+
+        $('#id').val(id);
+        $('#selectFechaModal').val(obj.fech);
+        $('#selectHorario').val(obj.hor);
+        $('#selectTema').val([obj.tms]);
+        alert($('#selectTema').val(obj.tms))
+        $('#cantidad').val(obj.can);
+        $('#selectTG').val(obj.tg);
+        $('#usu').val(obj.usu);
+        $('select').material_select();
         CargarEstadoEnChck(obj.est);
         //Activar Campos
         Materialize.updateTextFields();
@@ -186,28 +182,38 @@ function LimpiarCampos() {
     $('#id').val(0);
     $('#cantidad').val('');
     $('#selectFechaModal').val('');
-    $('select').material_select('destroy');
+    $('#selectHorario').val('');
+    $('#selectTema').val('');
+    $('#cantidad').val('');
     $('select').material_select();
 };
-function ListarReservas(){
+function ListarReservas() {
     $.getJSON("/Reserva/ListarReservasFechaUsuario", { fecha: $('#selectFecha').val(), usu: $('#usu').val() }, function (cadena) {
         $("#tabla").html(cadena);
     });
     $('#btnListar').show();
 };
-
-function ListarCampos() {
-    $.getJSON("/Reserva/ListarCampos", null, function (cadena) {
-        $("#campos").html(cadena);
+function ListarHorarios() {
+    $.getJSON("/Reserva/ListarHorarios", function (cadena) {
+        $("#campoHorario").html(cadena);
+        $('select').material_select();
+    });
+}
+function ListarTemas() {
+    $.getJSON("/Reserva/ListarTemas", function (cadena) {
+        $('#campoTema').html(cadena);
         $('select').material_select();
     });
 };
-
+function ListarTG() {
+    $.getJSON("/Reserva/ListarTG", function (cadena) {
+        $('#campoTG').html(cadena);
+        $('select').material_select();
+    });
+};
 //Funciones para eliminar
-function ModalConfirmar(id,nom) {
-    //alert(id + nom);
+function ModalConfirmar(id, nom) {
     $('#idEliminar').val(id);
-    //$('#nomEliminar').val(nom);
     var codigo = '<p class="light-blue-text text-darken-4 flow-text">Esta seguro que desea Eliminar la Reserva?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');

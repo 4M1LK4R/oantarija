@@ -34,8 +34,8 @@ namespace oantarija.Controllers
             {
                 cadena += "<tr>";
                 cadena += "<td>" + obj.nombre + "</td>";
-                cadena += "<td>" + obj.horainicio + "</td>";
-                cadena += "<td>" + obj.horafin + "</td>";
+                cadena += "<td>" + CambiarHora(obj.horainicio.ToString()) + "</td>";
+                cadena += "<td>" + CambiarHora(obj.horafin.ToString()) + "</td>";
                 if (obj.estado)
                 {
                     cadena += "<td>Activo</td>";
@@ -67,6 +67,12 @@ namespace oantarija.Controllers
             if (string.IsNullOrEmpty(h_fin))
                 error = "El campo hora fin esta vacio";
 
+            int i = int.Parse(DateTime.Parse(h_inicio).Hour.ToString()+ DateTime.Parse(h_inicio).Minute.ToString());
+            int f = int.Parse(DateTime.Parse(h_fin).Hour.ToString() + DateTime.Parse(h_fin).Minute.ToString());
+
+            if (i>f)
+                error = "La hora de inicio no puede ser mayor a la hora de fin";
+
             if (BD.horario.ToList().Exists(o => o.nombre == nombre) && id == 0)
                 error = "Ya existe un objeto con es nombre";
 
@@ -88,7 +94,7 @@ namespace oantarija.Controllers
                     obj = BD.horario.Single(o => o.id == id);
                     obj.nombre = nombre;
                     obj.horainicio = TimeSpan.Parse(h_inicio);
-                    obj.horainicio = TimeSpan.Parse(h_fin);
+                    obj.horafin = TimeSpan.Parse(h_fin);
                     obj.estado = estado;
                     BD.SaveChanges();
                 }

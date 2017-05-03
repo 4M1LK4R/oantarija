@@ -12,20 +12,13 @@ namespace oantarija.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sala
+    public partial class detalle_reserva_tema
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public sala()
-        {
-            this.tema = new HashSet<tema>();
-        }
-    
         public int id { get; set; }
-        public string nombre { get; set; }
-        public int capacidad { get; set; }
-        public bool estado { get; set; }
+        public int reserva { get; set; }
+        public int tema { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tema> tema { get; set; }
+        public virtual reserva reserva1 { get; set; }
+        public virtual tema tema1 { get; set; }
     }
 }

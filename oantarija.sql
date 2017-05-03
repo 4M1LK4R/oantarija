@@ -81,22 +81,31 @@ create table tema
 id int auto_increment not null,
 nombre varchar(300)not null,
 descripcion varchar(500)not null,
-fecharegistro datetime not null,
+disertante int not null,
 estado bit not null,
-primary key(id)
+sala int not null,
+primary key(id),
+index fk_disertante_reserva(disertante),
+    foreign key (disertante)
+    references disertante(id)
+    on delete cascade on update cascade,
+index fk_sala_reserva(sala),
+    foreign key (sala)
+    references sala(id)
+    on delete cascade on update cascade
 );
+
 create table reserva
 (
 id int auto_increment not null,
-fecha datetime not null,
+fecha date not null,
 cantidad int not null,
 vehiculo bit not null,
 horario int not null,
 usuario int not null,
-tema int not null,
-disertante int not null,
+
 tipo_grupo int not null,
-sala int not null,
+
 estado bit not null,
 primary key(id),
 index fk_horario_reserva(horario),
@@ -107,23 +116,45 @@ index fk_usuario_reserva(usuario),
     foreign key (usuario)
     references usuario(id)
     on delete cascade on update cascade,
-index fk_tema_reserva(tema),
-    foreign key (tema)
-    references tema(id)
-    on delete cascade on update cascade,
-index fk_disertante_reserva(disertante),
-    foreign key (disertante)
-    references disertante(id)
-    on delete cascade on update cascade,
+
 index fk_tipo_grupo_reserva(tipo_grupo),
     foreign key (tipo_grupo)
     references tipo_grupo(id)
-    on delete cascade on update cascade,
-index fk_sala_reserva(sala),
-    foreign key (sala)
-    references sala(id)
     on delete cascade on update cascade
 );
+
+create table detalle_reserva_tema(
+    id int auto_increment,
+    reserva int not null,
+    tema int not null,
+    primary key(id),
+    index fk_reserva_detalle_reserva_tema(reserva),
+        foreign key (reserva)
+        references reserva(id)
+        on delete cascade on update cascade,
+    index fk_tema_detalle_reserva_tema(tema),
+        foreign key (tema)
+        references tema(id)
+        on delete cascade on update cascade
+);
+
+create table adicionar_reserva(
+    id int auto_increment not null,
+    tema int not null,
+    cantidad int not null,
+    usuario int not null,
+    reserva int not null,
+    primary key(id),
+    index fk_usuario_adicionar_reserva(usuario),
+        foreign key(usuario)
+        references usuario(id)
+        on delete cascade on update cascade,
+    index fk_reserva_adicionar_reserva(reserva),
+        foreign key(reserva)
+        references reserva(id)
+        on delete cascade on update cascade     
+);
+
 create table visita
 (
 id int not null,
@@ -242,3 +273,7 @@ index fk_registro_soldetalle_registro_meteosol(registro_sol),
     references registro_sol(id)
     on delete cascade on update cascade
 );
+
+INSERT INTO `rol` (`id`, `nombre`, `estado`) VALUES (NULL, 'admin', b'1'), (NULL, 'user', b'1');
+INSERT INTO `persona` (`id`, `nombre`, `apellido`, `estado`) VALUES (NULL, 'admin', 'admin', b'1');
+INSERT INTO `usuario` (`id`, `correo`, `username`, `pass`, `rol`, `estado`) VALUES ('1', 'admin@admin', 'admin', '123', '1', b'1');

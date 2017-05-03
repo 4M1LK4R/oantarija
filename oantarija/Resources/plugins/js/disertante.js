@@ -107,7 +107,6 @@ function ListarDisertantes() {
     });
     console.log('Listando');
     $('#btnListar').show();
-    CrearDataTable();
     //$('#datatable').datatable();
 };
 
@@ -118,14 +117,14 @@ function ModalConfirmar(id,nom) {
     //alert(id + nom);
     $('#idEliminar').val(id);
     $('#nomEliminar').val(nom);
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea Eliminar la sala ' + nom + '?</p>';
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea Eliminar el disertante ' + nom + '?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');
 }
 $('#aceptarEliminar').click(function () {
     Eliminar($('#idEliminar').val());
     $('#modalEliminar').modal('close');
-    Materialize.toast('El tipo de grupo fue eliminado exitosamente!', 8000);
+    Materialize.toast('El disertante fue eliminado exitosamente!', 8000);
     ListarDisertantes();
 });
 $('#cancelarEliminar').click(function () {

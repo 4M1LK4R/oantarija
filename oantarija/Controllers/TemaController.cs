@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using oantarija.Models;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace oantarija.Controllers
 {
@@ -22,7 +24,8 @@ namespace oantarija.Controllers
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
-            cadena += "<th>Fecha Creacion</th>";
+            cadena += "<th>Disertante</th>";
+            cadena += "<th>Sala</th>";
             cadena += "<th>Estado</th>";
             cadena += "<th>Opciones</th>";
             cadena += "</tr>";
@@ -32,7 +35,9 @@ namespace oantarija.Controllers
             {
                 cadena += "<tr>";
                 cadena += "<td>" + obj.nombre + "</td>";
-                cadena += "<td>" + obj.fecharegistro + "</td>";
+                cadena += "<td>" + obj.disertante1.persona.nombre + " "+ obj.disertante1.persona.apellido + "</td>";
+                cadena += "<td>" + obj.sala1.nombre + "</td>";
+                //cadena += "<td>" + obj.fecharegistro + "</td>";
                 if (obj.estado)
                 {
                     cadena += "<td>Activo</td>";
@@ -51,7 +56,31 @@ namespace oantarija.Controllers
             cadena += "</table>";
             return Json(cadena, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GuardarTema(int id, string nombre, string descripcion, bool estado)
+        public ActionResult ListarDisertantes()
+        {
+            string cadena = "<p class='left-align'>Disertante:</p>";
+            cadena += "<select id='selectDisertante'>";
+            cadena += "<option value='' disabled selected>(Seleccionar disertante)</option>";
+            foreach (var obj in BD.disertante.ToList().Where(o => o.persona.estado).OrderBy(o=>o.persona.nombre))
+            {
+                cadena += "<option value=" + obj.id + ">" + obj.persona.nombre+" "+obj.persona.apellido+ "</option>";
+            }
+            cadena += "</select>";
+            return Json(cadena,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ListarSalas()
+        {
+            string cadena = "<p class='left-align'>Sala:</p>";
+            cadena += "<select id='selectSala'>";
+            cadena += "<option value='' disabled selected>(Seleccionar sala)</option>";
+            foreach (var obj in BD.sala.ToList().Where(o => o.estado).OrderBy(o=>o.nombre))
+            {
+                cadena += "<option value=" + obj.id + ">" + obj.nombre +"</option>";
+            }
+            cadena += "</select>";
+            return Json(cadena, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GuardarTema(int id, string nombre, string descripcion, int disertante, int sala, bool estado)
         {
             tema obj;
             string error = "";
@@ -72,7 +101,8 @@ namespace oantarija.Controllers
                     obj = new tema();
                     obj.nombre = nombre;
                     obj.descripcion = descripcion;
-                    obj.fecharegistro = DateTime.Now;
+                    obj.disertante = disertante;
+                    obj.sala = sala;
                     obj.estado = estado;
                     BD.tema.Add(obj);
                     BD.SaveChanges();
@@ -82,6 +112,8 @@ namespace oantarija.Controllers
                     obj = BD.tema.Single(o => o.id == id);
                     obj.nombre = nombre;
                     obj.descripcion = descripcion;
+                    obj.disertante = disertante;
+                    obj.sala = sala;
                     obj.estado = estado;
                     BD.SaveChanges();
                 }

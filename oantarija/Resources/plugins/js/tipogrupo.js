@@ -112,7 +112,7 @@ function ModalConfirmar(id,nom) {
     //alert(id + nom);
     $('#idEliminar').val(id);
     $('#nomEliminar').val(nom);
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea Eliminar la sala ' + nom + '?</p>';
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea Eliminar el grupo ' + nom + '?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');
 }

@@ -14,24 +14,29 @@ namespace oantarija.Models
     
     public partial class reserva
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public reserva()
+        {
+            this.adicionar_reserva = new HashSet<adicionar_reserva>();
+            this.detalle_reserva_tema = new HashSet<detalle_reserva_tema>();
+        }
+    
         public int id { get; set; }
         public System.DateTime fecha { get; set; }
         public int cantidad { get; set; }
         public bool vehiculo { get; set; }
         public int horario { get; set; }
         public int usuario { get; set; }
-        public int tema { get; set; }
-        public int disertante { get; set; }
         public int tipo_grupo { get; set; }
-        public int sala { get; set; }
         public bool estado { get; set; }
     
-        public virtual disertante disertante1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<adicionar_reserva> adicionar_reserva { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_reserva_tema> detalle_reserva_tema { get; set; }
         public virtual horario horario1 { get; set; }
         public virtual usuario usuario1 { get; set; }
-        public virtual tema tema1 { get; set; }
         public virtual tipo_grupo tipo_grupo1 { get; set; }
-        public virtual sala sala1 { get; set; }
         public virtual visita visita { get; set; }
     }
 }

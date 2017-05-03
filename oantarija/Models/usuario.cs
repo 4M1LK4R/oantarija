@@ -17,6 +17,7 @@ namespace oantarija.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
+            this.adicionar_reserva = new HashSet<adicionar_reserva>();
             this.inscripcion = new HashSet<inscripcion>();
             this.registro_meteo = new HashSet<registro_meteo>();
             this.registro_sol = new HashSet<registro_sol>();
@@ -31,6 +32,8 @@ namespace oantarija.Models
         public int rol { get; set; }
         public bool estado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<adicionar_reserva> adicionar_reserva { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inscripcion> inscripcion { get; set; }
         public virtual persona persona { get; set; }

@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="oantarijaModelStoreContainer" CdmEntityContainer="oantarijaEntities">
+    <EntitySetMapping Name="adicionar_reserva">
+      <EntityTypeMapping TypeName="oantarijaModel.adicionar_reserva">
+        <MappingFragment StoreEntitySet="adicionar_reserva">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tema" ColumnName="tema" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="usuario" ColumnName="usuario" />
+          <ScalarProperty Name="reserva" ColumnName="reserva" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="boletin">
       <EntityTypeMapping TypeName="oantarijaModel.boletin">
         <MappingFragment StoreEntitySet="boletin">
@@ -34,6 +45,15 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="registro_sol" ColumnName="registro_sol" />
           <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detalle_reserva_tema">
+      <EntityTypeMapping TypeName="oantarijaModel.detalle_reserva_tema">
+        <MappingFragment StoreEntitySet="detalle_reserva_tema">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="reserva" ColumnName="reserva" />
+          <ScalarProperty Name="tema" ColumnName="tema" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -115,10 +135,7 @@
           <ScalarProperty Name="vehiculo" ColumnName="vehiculo" />
           <ScalarProperty Name="horario" ColumnName="horario" />
           <ScalarProperty Name="usuario" ColumnName="usuario" />
-          <ScalarProperty Name="tema" ColumnName="tema" />
-          <ScalarProperty Name="disertante" ColumnName="disertante" />
           <ScalarProperty Name="tipo_grupo" ColumnName="tipo_grupo" />
-          <ScalarProperty Name="sala" ColumnName="sala" />
           <ScalarProperty Name="estado" ColumnName="estado" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -158,8 +175,9 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="fecharegistro" ColumnName="fecharegistro" />
+          <ScalarProperty Name="disertante" ColumnName="disertante" />
           <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="sala" ColumnName="sala" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
