@@ -12,20 +12,19 @@ namespace oantarija.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class registro_sol
+    public partial class actividad_solar
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public registro_sol()
-        {
-            this.detalle_registro_sol = new HashSet<detalle_registro_sol>();
-        }
-    
         public int id { get; set; }
-        public int usuario { get; set; }
+        public System.DateTime fecha { get; set; }
+        public string hora { get; set; }
+        public string cantidad_manchas { get; set; }
         public bool estado { get; set; }
+        public Nullable<int> telescopio { get; set; }
+        public Nullable<int> camara { get; set; }
+        public Nullable<int> software { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<detalle_registro_sol> detalle_registro_sol { get; set; }
-        public virtual usuario usuario1 { get; set; }
+        public virtual telescopio telescopio1 { get; set; }
+        public virtual camara camara1 { get; set; }
+        public virtual software software1 { get; set; }
     }
 }

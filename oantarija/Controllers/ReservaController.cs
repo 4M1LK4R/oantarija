@@ -20,16 +20,38 @@ namespace oantarija.Controllers
             reserva obj;
 
             string error = "";
-            //if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == idusu && o.sala == sala) && id == 0)
-            //    error = "Ya tienes una reserva para esta fehca " + fecha + " con ese es horario y esa sala";
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == idusu) && id == 0)
+                error = "Ya tienes una reserva para esta fehca " + fecha + " con ese es horario y esa sala";
 
-            //if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.sala == sala))
-            //{
-            //    error = "proponer";
-            //    reserva re = BD.reserva.ToList().Single(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.sala == sala);
-            //    var rese = new { err = error, iid = re.id, fech = re.fecha.ToShortDateString(), can = re.cantidad, veh = re.vehiculo, hor = re.horario1.nombre, usu = re.usuario1.username, tem = re.tema1.nombre, dis = re.disertante1.persona.nombre, tp = re.tipo_grupo1.nombre, sal = re.sala1.nombre, salcapacidad = re.sala1.capacidad, est = re.estado };
-            //    return Json(rese, JsonRequestBehavior.AllowGet);
-            //}
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario))
+            {
+                error = "proponer";
+                reserva re = BD.reserva.ToList().Single(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario);
+                
+                string tems = "";
+                bool flag = false;
+                foreach (var item in BD.detalle_reserva_tema.ToList().Where(o => o.reserva == re.id))
+                {
+                    if (flag)
+                        tems += ",";
+                    tems += item.tema1.nombre.ToString();
+                    flag = true;
+                }
+                var Reserva = new
+                {
+                    err = error,
+                    iid = re.id,
+                    fech = re.fecha.ToShortDateString(),
+                    hor = re.horario1.nombre,
+                    tms = tems,
+                    can = re.cantidad,
+                    tg = re.tipo_grupo,
+                    veh = re.vehiculo,
+                    usu = re.usuario1.username,
+                    est = re.estado
+                };
+                return Json(Reserva, JsonRequestBehavior.AllowGet);
+            }
 
             if (string.IsNullOrEmpty(error))
             {
@@ -59,8 +81,12 @@ namespace oantarija.Controllers
                     obj.vehiculo = vehiculo;
                     obj.estado = estado;
                     obj.usuario = idusu;
-                    BD.reserva.Add(obj);
-                    BD.SaveChanges();
+                
+                    foreach (var item in BD.detalle_reserva_tema.Where(o => o.reserva == id))
+                    {
+                        BD.detalle_reserva_tema.Remove(item);
+                    }
+
                     RegistrarDetalleReservaTema(obj.id, temas);
                 }
             }
@@ -70,9 +96,7 @@ namespace oantarija.Controllers
         void RegistrarDetalleReservaTema(int idReserva, string temas)
         {
             detalle_reserva_tema obj;
-
             string[] split = temas.Split(new Char[] { ',' });
-
             for (int i = 0; i < split.Length; i++)
             {
                 obj = new detalle_reserva_tema();
@@ -154,12 +178,12 @@ namespace oantarija.Controllers
                 if (obj.usuario == idusu)
                 {
                     cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar(" + obj.id + ");'></i></a>&nbsp;";
-                    cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar(" + obj.id + ",\"" + obj.fecha + "\");'></i></a>";
+                    cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar(" + obj.id + ");'></i></a>";
                 }
-                //else
-                //{
-                //    cadena += "<a class='waves-effect waves-light btn btn-floating green'><i class='icon-user-plus' onclick='Sumarse(" + obj.id + ");'></i></a>&nbsp;";
-                //}
+                else
+                {
+                    cadena += "<a class='waves-effect waves-light btn btn-floating green'><i class='icon-user-plus' onclick='Sumarse(" + obj.id + ","+obj.cantidad+");'></i></a>&nbsp;";
+                }
                 cadena += "</td>";
                 cadena += "</tr>";
             }
@@ -179,7 +203,7 @@ namespace oantarija.Controllers
                     temas += ",";
                 temas += item.tema.ToString();
                 flag = true;
-            }
+            }                
             var Reserva = new
             {
                 fech = obj.fecha.ToShortDateString(),
@@ -193,71 +217,26 @@ namespace oantarija.Controllers
             };
             return Json(Reserva, JsonRequestBehavior.AllowGet);
         }
-        //public ActionResult ListarCampos()
-        //{
-        //    //Horario
-        //    string cadena = "<p class='left-align'>Horario:</p>";
-        //    cadena += "<select id='selectHorario'>";
-        //    cadena += "<option value='' disabled selected>(Selecciona un horario)</option>";
-        //    foreach (var obj in BD.horario.ToList().Where(o=>o.estado))
-        //    {
-        //        cadena += "<option value=" + obj.id + ">" + obj.nombre + "</option>";
-        //    }
-        //    cadena += "</select>";
-        //    //Tema
-        //    cadena += "<p class='left-align'>Tema:</p>";
-        //    cadena += "<select id='selectTema'>";
-        //    cadena += "<option value='' disabled selected>(Selecciona un tema)</option>";
-        //    foreach (var obj in BD.tema.ToList().Where(o => o.estado))
-        //    {
-        //        cadena += "<option value=" + obj.id + ">" + obj.nombre + "</option>";
-        //    }
-        //    cadena += "</select>";
-        //    //Disertante
-        //    cadena += "<p class='left-align'>Disertante:</p>";
-        //    cadena += "<select id='selectDisertante'>";
-        //    cadena += "<option value='' disabled selected>(Selecciona un Disertante)</option>";
-        //    foreach (var obj in BD.disertante.ToList().Where(o => o.persona.estado))
-        //    {
-        //        cadena += "<option value=" + obj.id + ">" + obj.persona.nombre + "</option>";
-        //    }
-        //    cadena += "</select>";
-        //    //Tipo de Grupo
-        //    cadena += "<p class='left-align'>Tipo de Grupo:</p>";
-        //    cadena += "<select id='selectTipoGrupo'>";
-        //    cadena += "<option value='' disabled selected>(Selecciona un Tipo de Grupo)</option>";
-        //    foreach (var obj in BD.tipo_grupo.ToList().Where(o => o.estado))
-        //    {
-        //        cadena += "<option value=" + obj.id + ">" + obj.nombre + "</option>";
-        //    }
-        //    cadena += "</select>";
-        //    //Sala
-        //    cadena += "<p class='left-align'>Sala:</p>";
-        //    cadena += "<select id='selectSala'>";
-        //    cadena += "<option value='' disabled selected>(Selecciona una Sala)</option>";
-        //    foreach (var obj in BD.sala.ToList().Where(o => o.estado))
-        //    {
-        //        cadena += "<option value=" + obj.id + ">" + obj.nombre + "</option>";
-        //    }
-        //    cadena += "</select>";
-        //    return Json(cadena, JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult DeleteReserva(int id)
+        {
+            reserva obj = BD.reserva.Single(o => o.id == id);
+            BD.reserva.Remove(obj);
+            BD.SaveChanges();
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult AdicionarReserva(int idre,string usu, int cantidad)
+        {
+            reserva re = BD.reserva.Single(o => o.id == idre);
+            re.cantidad += cantidad;
 
-
-
-        //public ActionResult DeleteReserva(int id)
-        //{
-        //    reserva obj = BD.reserva.Single(o => o.id == id);
-        //    BD.reserva.Remove(obj);
-        //    BD.SaveChanges();
-        //    return Json(null, JsonRequestBehavior.AllowGet);
-        //}
-        //public ActionResult AdicionarReserva(int id, int cantidad)
-        //{
-        //    reserva obj = BD.reserva.Single(o => o.id == id);
-        //    obj.cantidad = obj.cantidad + cantidad;
-        //    BD.SaveChanges();
-        //    return Json(null, JsonRequestBehavior.AllowGet);
-        //}
+            int idusu = BD.usuario.Single(o => o.username == usu).id;
+            adicionar_reserva add_re = new adicionar_reserva();
+            add_re.cantidad = cantidad;
+            add_re.usuario = idusu;
+            add_re.reserva = idre;
+            BD.adicionar_reserva.Add(add_re);
+            BD.SaveChanges();
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
     }
 }

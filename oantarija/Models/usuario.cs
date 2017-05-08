@@ -19,8 +19,6 @@ namespace oantarija.Models
         {
             this.adicionar_reserva = new HashSet<adicionar_reserva>();
             this.inscripcion = new HashSet<inscripcion>();
-            this.registro_meteo = new HashSet<registro_meteo>();
-            this.registro_sol = new HashSet<registro_sol>();
             this.reserva = new HashSet<reserva>();
             this.suscripcion = new HashSet<suscripcion>();
         }
@@ -37,10 +35,6 @@ namespace oantarija.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inscripcion> inscripcion { get; set; }
         public virtual persona persona { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<registro_meteo> registro_meteo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<registro_sol> registro_sol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reserva> reserva { get; set; }
         public virtual rol rol1 { get; set; }

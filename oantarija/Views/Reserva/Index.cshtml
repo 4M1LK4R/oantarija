@@ -72,8 +72,6 @@
                             <div class="input-field col s12">
                                 <p><i class="icon-book"></i>Tema(s):</p>
                                 <div id="campoTema"></div>
-                                <a class="btn" onclick="console.log($('#selectTema').val())">Mostrar</a>
-                                <a class="btn" onclick="$('#selectTema').val([2, 4, 6]),$('select').material_select();">Cargar 2 4 6</a>
                             </div>
                         </div>
                     </div>
@@ -81,7 +79,7 @@
                     <div class="input-field col s12 m12 l12">
                         <i class="icon-users-1 prefix"></i>
                         <input id="cantidad" type="text">
-                        <label for="cantidad">Cantidad de Personas:</label>                        
+                        <label for="cantidad">Cantidad de Personas (Max. 50):</label>                        
                     </div>
                     <!--TipoGrupo-->
                     <div class="row">
@@ -128,15 +126,15 @@
     <div id="modalProponer" class="modal">
         <div class="modal-content">
             <center>
-                <h4>Ya existe una reserva para...</h4>
                 <div id="ContenidoProponer"></div>
-                <h4>Desea sumarse a la reserva?</h4>
+
                 <input type="text" id="idReservaProponer"/>
-                <input type="text" id="Disponible" />
+                <input type="text" id="Disponible"/>
+
                 <div class="input-field col s12 m12 l12">
-                    <i class="icon-right-dir prefix"></i>
+                    <i class="icon-users-1 prefix"></i>
                     <input id="cantidadProponer" type="text">
-                    <label for="cantidadProponer">Cantidad de Personas</label>
+                    <label for="cantidadProponer">Cantidad de Personas:</label>
                 </div>
             </center>
         </div>

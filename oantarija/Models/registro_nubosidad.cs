@@ -12,12 +12,13 @@ namespace oantarija.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class detalle_registro_sol
+    public partial class registro_nubosidad
     {
         public int id { get; set; }
-        public int registro_sol { get; set; }
+        public System.DateTime fecha { get; set; }
+        public string nubosidad { get; set; }
+        public string temperatura { get; set; }
+        public string observaciones { get; set; }
         public bool estado { get; set; }
-    
-        public virtual registro_sol registro_sol1 { get; set; }
     }
 }

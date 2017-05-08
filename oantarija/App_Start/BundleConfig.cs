@@ -69,9 +69,16 @@ namespace oantarija
             bundles.Add(new ScriptBundle("~/bundles/disertante").Include(
                 "~/Resources/plugins/js/disertante.js"
                 ));
-             bundles.Add(new ScriptBundle("~/bundles/reserva").Include(
-                "~/Resources/plugins/js/reserva.js"
+            bundles.Add(new ScriptBundle("~/bundles/reserva").Include(
+               "~/Resources/plugins/js/reserva.js"
+               ));
+            bundles.Add(new ScriptBundle("~/bundles/registro_nubosidad").Include(
+                "~/Resources/plugins/js/registro_nubosidad.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/telescopio").Include(
+                "~/Resources/plugins/js/telescopio.js"
+                ));
+
         }
     }
 }

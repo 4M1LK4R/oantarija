@@ -12,12 +12,21 @@ namespace oantarija.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class detalle_registro_meteo
+    public partial class camara
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public camara()
+        {
+            this.actividad_solar = new HashSet<actividad_solar>();
+        }
+    
         public int id { get; set; }
-        public int registro_meteo { get; set; }
+        public string nombre { get; set; }
+        public string marca { get; set; }
+        public string dim_chip { get; set; }
         public bool estado { get; set; }
     
-        public virtual registro_meteo registro_meteo1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<actividad_solar> actividad_solar { get; set; }
     }
 }

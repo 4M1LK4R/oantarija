@@ -15,7 +15,6 @@ namespace oantarija.Models
     public partial class adicionar_reserva
     {
         public int id { get; set; }
-        public int tema { get; set; }
         public int cantidad { get; set; }
         public int usuario { get; set; }
         public int reserva { get; set; }

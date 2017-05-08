@@ -25,23 +25,24 @@ namespace oantarija.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<actividad_solar> actividad_solar { get; set; }
         public virtual DbSet<adicionar_reserva> adicionar_reserva { get; set; }
         public virtual DbSet<boletin> boletin { get; set; }
+        public virtual DbSet<camara> camara { get; set; }
         public virtual DbSet<curso> curso { get; set; }
-        public virtual DbSet<detalle_registro_meteo> detalle_registro_meteo { get; set; }
-        public virtual DbSet<detalle_registro_sol> detalle_registro_sol { get; set; }
         public virtual DbSet<detalle_reserva_tema> detalle_reserva_tema { get; set; }
         public virtual DbSet<disertante> disertante { get; set; }
         public virtual DbSet<envio> envio { get; set; }
         public virtual DbSet<horario> horario { get; set; }
         public virtual DbSet<inscripcion> inscripcion { get; set; }
         public virtual DbSet<persona> persona { get; set; }
-        public virtual DbSet<registro_meteo> registro_meteo { get; set; }
-        public virtual DbSet<registro_sol> registro_sol { get; set; }
+        public virtual DbSet<registro_nubosidad> registro_nubosidad { get; set; }
         public virtual DbSet<reserva> reserva { get; set; }
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<sala> sala { get; set; }
+        public virtual DbSet<software> software { get; set; }
         public virtual DbSet<suscripcion> suscripcion { get; set; }
+        public virtual DbSet<telescopio> telescopio { get; set; }
         public virtual DbSet<tema> tema { get; set; }
         public virtual DbSet<tipo_grupo> tipo_grupo { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }

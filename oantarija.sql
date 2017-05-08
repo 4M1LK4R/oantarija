@@ -140,7 +140,6 @@ create table detalle_reserva_tema(
 
 create table adicionar_reserva(
     id int auto_increment not null,
-    tema int not null,
     cantidad int not null,
     usuario int not null,
     reserva int not null,
@@ -223,54 +222,70 @@ index fk_curso_inscripcion(curso),
     references curso(id)
     on delete cascade on update cascade
 );
-
-create table registro_meteo
+create table registro_nubosidad
 (
 id int auto_increment not null,
-usuario int not null,
-nombre varchar(50) not null,
-documento varchar(200) not null,
+fecha date not null,
+nubosidad varchar(50)not null,
+temperatura varchar(50)not null,
+observaciones varchar(50)not null,
 estado bit not null,
-primary key(id),
-index fk_usuario_registro_meteo(usuario),
-    foreign key (usuario)
-    references usuario(id)
-    on delete cascade on update cascade
+primary key(id)
 );
 
-create table detalle_registro_meteo
+create table telescopio
 (
 id int auto_increment not null,
-registro_meteo int not null,
+nombre varchar(50)not null,
+marca varchar(50)not null,
+tipo varchar(50)not null,
+diametro varchar(50)not null,
+dis_focal varchar(50)not null,
+montura varchar(50)not null,
 estado bit not null,
-primary key(id),
-index fk_registro_meteo_detalle_registro_meteo(registro_meteo),
-    foreign key (registro_meteo)
-    references registro_meteo(id)
-    on delete cascade on update cascade
+primary key(id)
+);
+create table camara
+(
+id int auto_increment not null,
+nombre varchar(50)not null,
+marca varchar(50)not null,
+dim_chip varchar(50)not null,
+estado bit not null,
+primary key(id)
+);
+create table software
+(
+id int auto_increment not null,
+nombre varchar(50)not null,
+objetivo varchar(50)not null,
+descripcion varchar(50)not null,
+estado bit not null,
+primary key(id)
 );
 
-create table registro_sol
+create table actividad_solar
 (
 id int auto_increment not null,
-usuario int not null,
+fecha date not null,
+hora varchar(50) not null,
+cantidad_manchas varchar(50)not null,
 estado bit not null,
 primary key(id),
-index fk_usuario_detalle_registro_meteo(usuario),
-    foreign key (usuario)
-    references usuario(id)
-    on delete cascade on update cascade
-);
-
-create table detalle_registro_sol
-(
-id int auto_increment not null,
-registro_sol int not null,
-estado bit not null,
-primary key(id),
-index fk_registro_soldetalle_registro_meteosol(registro_sol),
-    foreign key (registro_sol)
-    references registro_sol(id)
+telescopio int,
+camara int,
+software int,
+index fk_telescopio_actividad_solar(telescopio),
+    foreign key (telescopio)
+    references telescopio(id)
+    on delete cascade on update cascade,
+    index fk_camara_actividad_solar(camara),
+    foreign key (camara)
+    references camara(id)
+    on delete cascade on update cascade,
+    index fk_software_actividad_solar(software),
+    foreign key (software)
+    references software(id)
     on delete cascade on update cascade
 );
 

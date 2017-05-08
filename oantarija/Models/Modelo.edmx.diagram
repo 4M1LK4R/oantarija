@@ -4,34 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f662a29c83af442587531b0b4f79de52" Name="Diagram1">
-        <EntityTypeShape EntityType="oantarijaModel.adicionar_reserva" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.boletin" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.curso" Width="1.5" PointX="6" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.detalle_registro_meteo" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.detalle_registro_sol" Width="1.5" PointX="7.5" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.detalle_reserva_tema" Width="1.5" PointX="12.5" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.disertante" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.envio" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.horario" Width="1.5" PointX="8" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.inscripcion" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.persona" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.registro_meteo" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.registro_sol" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.reserva" Width="1.5" PointX="10.25" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.rol" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.sala" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.suscripcion" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.tema" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.tipo_grupo" Width="1.5" PointX="8" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.usuario" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="oantarijaModel.visita" Width="1.5" PointX="12.5" PointY="7.125" IsExpanded="true" />
+      <Diagram DiagramId="964ebf40d4ae45a982db9ed533895afa" Name="Diagram1">
+        <EntityTypeShape EntityType="oantarijaModel.actividad_solar" Width="1.5" PointX="10.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.adicionar_reserva" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.boletin" Width="1.5" PointX="5.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.camara" Width="1.5" PointX="7.875" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.curso" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.detalle_reserva_tema" Width="1.5" PointX="10.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.disertante" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.envio" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.horario" Width="1.5" PointX="6" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.inscripcion" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.persona" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.registro_nubosidad" Width="1.5" PointX="10.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.reserva" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.rol" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.sala" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.software" Width="1.5" PointX="7.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.suscripcion" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.telescopio" Width="1.5" PointX="8.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.tema" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.tipo_grupo" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.usuario" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="oantarijaModel.visita" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="oantarijaModel.actividad_solar_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="oantarijaModel.actividad_solar_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="oantarijaModel.actividad_solar_ibfk_3" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.adicionar_reserva_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.adicionar_reserva_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.envio_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.inscripcion_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="oantarijaModel.detalle_registro_meteo_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="oantarijaModel.detalle_registro_sol_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.detalle_reserva_tema_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.detalle_reserva_tema_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.disertante_ibfk_1" ManuallyRouted="false" />
@@ -40,8 +42,6 @@
         <AssociationConnector Association="oantarijaModel.reserva_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.inscripcion_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.usuario_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="oantarijaModel.registro_meteo_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="oantarijaModel.registro_sol_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.reserva_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.reserva_ibfk_3" ManuallyRouted="false" />
         <AssociationConnector Association="oantarijaModel.visita_ibfk_1" ManuallyRouted="false" />

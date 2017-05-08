@@ -185,28 +185,30 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RegistroNubosidadController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
+    <Compile Include="Controllers\TelescopioController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\TipoGrupoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\actividad_solar.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\adicionar_reserva.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\boletin.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\camara.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\curso.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\detalle_registro_meteo.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\detalle_registro_sol.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\detalle_reserva_tema.cs">
@@ -244,10 +246,7 @@
     <Compile Include="Models\persona.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\registro_meteo.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\registro_sol.cs">
+    <Compile Include="Models\registro_nubosidad.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\reserva.cs">
@@ -259,7 +258,13 @@
     <Compile Include="Models\sala.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\software.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\suscripcion.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\telescopio.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tema.cs">
@@ -328,10 +333,12 @@
     <Content Include="Resources\plugins\jquery\jquery.numeric.js" />
     <Content Include="Resources\plugins\js\cuenta.js" />
     <Content Include="Resources\plugins\js\boletin.js" />
+    <Content Include="Resources\plugins\js\telescopio.js" />
     <Content Include="Resources\plugins\js\rol.js" />
     <Content Include="Resources\plugins\js\main.js" />
     <Content Include="Resources\plugins\js\horario.js" />
     <Content Include="Resources\plugins\js\reserva.js" />
+    <Content Include="Resources\plugins\js\registro_nubosidad.js" />
     <Content Include="Resources\plugins\js\tema.js" />
     <Content Include="Resources\plugins\js\curso.js" />
     <Content Include="Resources\plugins\js\disertante.js" />
@@ -438,6 +445,8 @@
     <Content Include="Views\Home\Inicio.cshtml" />
     <Content Include="Views\Disertante\Index.cshtml" />
     <Content Include="Views\Reserva\Index.cshtml" />
+    <Content Include="Views\RegistroNubosidad\Index.cshtml" />
+    <Content Include="Views\Telescopio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
