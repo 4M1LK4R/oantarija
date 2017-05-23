@@ -1,9 +1,5 @@
-use master;
-go
 create database oantarija;
-go
 use oantarija;
-go
 create table persona
 (
 id int identity(1,1) not null,
@@ -28,17 +24,17 @@ username varchar(50) not null,
 pass varchar(50)not null,
 rol int not null,
 estado bit not null,
-constraint unique unq_usuario_correo(correo),
-constraint unique unq_usuario_usermane(username),
+unique(correo),
+unique(username),
 primary key(id),
-constraint fk_persona_usuario(id),
+index fk_persona_usuario(id),
     foreign key (id)
     references persona(id)
-    on delete cascade on update cascade,
-constraint fk_rol_usuario(rol),
+    ,
+index fk_rol_usuario(rol),
     foreign key (rol)
     references rol(id)
-    on delete cascade on update cascade
+    
 );
 
 create table tipo_grupo
@@ -47,7 +43,7 @@ id int identity(1,1) not null,
 nombre varchar(50)not null,
 estado bit not null,
 primary key(id),
-constraint unique unq_tipo_grupo_nombre(nombre)
+unique(nombre)
 );
 
 create table sala
@@ -57,7 +53,7 @@ nombre varchar(50)not null,
 capacidad int not null,
 primary key(id),
 estado bit not null,
-constraint unique unq_sala_nombre(nombre)
+unique(nombre)
 );
 
 create table horario
@@ -68,16 +64,17 @@ horainicio time not null,
 horafin time not null,
 primary key(id),
 estado bit not null,
-constraint unique unq_(nombre)
+unique(nombre)
 );
 create table disertante
 (
 id int not null,
 fecharegistro datetime not null,
 primary key(id),
-constraint fk_persona_disertante foreign key(id)
+index fk_persona_disertante(id),
+    foreign key(id)
     references persona(id)
-    on delete cascade on update cascade
+    
 );
 create table tema
 (
@@ -88,12 +85,14 @@ disertante int not null,
 estado bit not null,
 sala int not null,
 primary key(id),
-constraint fk_disertante_reserva foreign key (disertante)
+index fk_disertante_reserva(disertante),
+    foreign key (disertante)
     references disertante(id)
-    on delete cascade on update cascade,
-constraint fk_sala_reserva foreign key (sala)
+    ,
+index fk_sala_reserva(sala),
+    foreign key (sala)
     references sala(id)
-    on delete cascade on update cascade
+    
 );
 
 create table reserva
@@ -101,23 +100,24 @@ create table reserva
 id int identity(1,1) not null,
 fecha date not null,
 cantidad int not null,
-vehiculo bit not null,
 horario int not null,
 usuario int not null,
-
 tipo_grupo int not null,
-
 estado bit not null,
 primary key(id),
-constraint fk_horario_reserva foreign key references horario(id)
-    on delete cascade on update cascade,
-constraint fk_usuario_reserva foreign key (usuario)
+index fk_horario_reserva(horario),
+    foreign key (horario)
+    references horario(id)
+    ,
+index fk_usuario_reserva(usuario),
+    foreign key (usuario)
     references usuario(id)
-    on delete cascade on update cascade,
+    ,
 
-constraint fk_tipo_grupo_reserva foreign key (tipo_grupo)
+index fk_tipo_grupo_reserva(tipo_grupo),
+    foreign key (tipo_grupo)
     references tipo_grupo(id)
-    on delete cascade on update cascade
+    
 );
 
 create table detalle_reserva_tema(
@@ -125,12 +125,14 @@ create table detalle_reserva_tema(
     reserva int not null,
     tema int not null,
     primary key(id),
-    constraint fk_reserva_detalle_reserva_tema foreign key (reserva)
+    index fk_reserva_detalle_reserva_tema(reserva),
+        foreign key (reserva)
         references reserva(id)
-        on delete cascade on update cascade,
-    constraint fk_tema_detalle_reserva_tema foreign key (tema)
+        ,
+    index fk_tema_detalle_reserva_tema(tema),
+        foreign key (tema)
         references tema(id)
-        on delete cascade on update cascade
+        
 );
 
 create table adicionar_reserva(
@@ -139,54 +141,58 @@ create table adicionar_reserva(
     usuario int not null,
     reserva int not null,
     primary key(id),
-    constraint fk_usuario_adicionar_reserva foreign key(usuario)
+    index fk_usuario_adicionar_reserva(usuario),
+        foreign key(usuario)
         references usuario(id)
-        on delete cascade on update cascade,
-    constraint fk_reserva_adicionar_reserva foreign key(reserva)
+        ,
+    index fk_reserva_adicionar_reserva(reserva),
+        foreign key(reserva)
         references reserva(id)
-        on delete cascade on update cascade     
+             
 );
 
 create table visita
 (
 id int not null,
+fecha date not null,
+hora_entrada time,
+hora_salida time,
+cantidad_personas int not null,
+proposito varchar(50),
+vehiculo bit not null,
+placa_vehiculo varchar(50),
+tipo_vehiculo varchar(50),
+color_vehiculo varchar(50),
+procedencia varchar(50),
+usuario int not null,
 estado bit not null,
 primary key(id),
-constraint fk_visita_programacion foreign key (id)
+index fk_reserva_visita(id),
+    foreign key (id)
     references reserva(id)
-    on delete cascade on update cascade
+    
 );
 create table suscripcion
 (
 id int identity(1,1) not null,
-fecharegistro datetime not null,
+fecha_registro date not null,
 usuario int not null,
 estado bit not null,
 primary key(id),
-constraint fk_persona_suscripcion foreign key (usuario)
+index fk_persona_suscripcion(usuario),
+    foreign key (usuario)
     references usuario(id)
-    on delete cascade on update cascade
+    
 );
 create table boletin
 (
 id int identity(1,1) not null,
 nombre varchar(50)not null,
+descripcion varchar(200),
+fecha_registro date not null,
+url varchar(200) not null,
 estado bit not null,
 primary key(id)
-);
-create table envio
-(
-id int identity(1,1) not null,
-boletin int not null,
-suscripcion int not null,
-estado bit not null,
-primary key(id),
-constraint fk_boletin_envio foreign key (boletin)
-    references boletin(id)
-    on delete cascade on update cascade,
-constraint fk_suscripcion_envio foreign key (suscripcion)
-    references suscripcion(id)
-    on delete cascade on update cascade
 );
 create table curso
 (
@@ -202,22 +208,30 @@ usuario int not null,
 curso int not null,
 estado bit not null,
 primary key(id),
-constraint fk_usuario_inscripcion foreign key (usuario)
+index fk_usuario_inscripcion(usuario),
+    foreign key (usuario)
     references usuario(id)
-    on delete cascade on update cascade,
-constraint fk_curso_inscripcion foreign key (curso)
+    ,
+index fk_curso_inscripcion(curso),
+    foreign key (curso)
     references curso(id)
-    on delete cascade on update cascade
+    
 );
 create table registro_nubosidad
 (
 id int identity(1,1) not null,
 fecha date not null,
+hora time not null,
 nubosidad varchar(50)not null,
 temperatura varchar(50)not null,
-observaciones varchar(50)not null,
+observaciones varchar(50),
+usuario int not null,
 estado bit not null,
-primary key(id)
+primary key(id),
+index fk_usuario_registro_nubosidad(usuario),
+    foreign key (usuario)
+    references usuario(id)
+    
 );
 
 create table telescopio
@@ -257,22 +271,30 @@ id int identity(1,1) not null,
 fecha date not null,
 hora varchar(50) not null,
 cantidad_manchas varchar(50)not null,
+usuario int not null,
 estado bit not null,
 primary key(id),
-telescopio int,
 camara int,
+telescopio int,
 software int,
-constraint fk_telescopio_actividad_solar foreign key (telescopio)
+index fk_usuario_actividad_solar(usuario),
+    foreign key (usuario)
+    references usuario(id)
+    ,
+index fk_telescopio_actividad_solar(telescopio),
+    foreign key (telescopio)
     references telescopio(id)
-    on delete cascade on update cascade,
-    constraint fk_camara_actividad_solar foreign key (camara)
+    ,
+    index fk_camara_actividad_solar(camara),
+    foreign key (camara)
     references camara(id)
-    on delete cascade on update cascade,
-    constraint fk_software_actividad_solar oreign key (software)
+    ,
+    index fk_software_actividad_solar(software),
+    foreign key (software)
     references software(id)
-    on delete cascade on update cascade
+    
 );
-
-INSERT INTO `rol` (`id`, `nombre`, `estado`) VALUES (NULL, 'admin', b'1'), (NULL, 'user', b'1');
-INSERT INTO `persona` (`id`, `nombre`, `apellido`, `estado`) VALUES (NULL, 'admin', 'admin', b'1');
-INSERT INTO `usuario` (`id`, `correo`, `username`, `pass`, `rol`, `estado`) VALUES ('1', 'admin@admin', 'admin', '123', '1', b'1');
+select * from rol
+INSERT INTO rol ( nombre, estado) VALUES ( 'admin',1), ( 'user', 1);
+INSERT INTO persona ( nombre, apellido, estado) VALUES ( 'admin', 'admin', 1);
+INSERT INTO usuario (id, correo, username, pass, rol, estado) VALUES (1, 'admin@admin', 'admin', '123', '1', 1);
