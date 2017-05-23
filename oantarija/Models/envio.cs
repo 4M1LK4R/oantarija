@@ -15,6 +15,7 @@ namespace oantarija.Models
     public partial class envio
     {
         public int id { get; set; }
+        public System.DateTime fecha_registro { get; set; }
         public int boletin { get; set; }
         public int suscripcion { get; set; }
         public bool estado { get; set; }

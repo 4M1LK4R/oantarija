@@ -100,12 +100,9 @@ create table reserva
 id int auto_increment not null,
 fecha date not null,
 cantidad int not null,
-vehiculo bit not null,
 horario int not null,
 usuario int not null,
-
 tipo_grupo int not null,
-
 estado bit not null,
 primary key(id),
 index fk_horario_reserva(horario),
@@ -157,9 +154,20 @@ create table adicionar_reserva(
 create table visita
 (
 id int not null,
+fecha date not null,
+hora_entrada time,
+hora_salida time,
+cantidad_personas int not null,
+proposito varchar(50),
+vehiculo bit not null,
+placa_vehiculo varchar(50),
+tipo_vehiculo varchar(50),
+color_vehiculo varchar(50),
+procedencia varchar(50),
+usuario int not null,
 estado bit not null,
 primary key(id),
-index fk_visita_programacion(id),
+index fk_reserva_visita(id),
     foreign key (id)
     references reserva(id)
     on delete cascade on update cascade
@@ -167,7 +175,7 @@ index fk_visita_programacion(id),
 create table suscripcion
 (
 id int auto_increment not null,
-fecharegistro datetime not null,
+fecha_registro date not null,
 usuario int not null,
 estado bit not null,
 primary key(id),
@@ -180,24 +188,11 @@ create table boletin
 (
 id int auto_increment not null,
 nombre varchar(50)not null,
+descripcion varchar(200),
+fecha_registro date not null,
+url varchar(200) not null,
 estado bit not null,
 primary key(id)
-);
-create table envio
-(
-id int auto_increment not null,
-boletin int not null,
-suscripcion int not null,
-estado bit not null,
-primary key(id),
-index fk_boletin_envio(boletin),
-    foreign key (boletin)
-    references boletin(id)
-    on delete cascade on update cascade,
-index fk_suscripcion_envio(suscripcion),
-    foreign key (suscripcion)
-    references suscripcion(id)
-    on delete cascade on update cascade
 );
 create table curso
 (
@@ -226,11 +221,17 @@ create table registro_nubosidad
 (
 id int auto_increment not null,
 fecha date not null,
+hora time not null,
 nubosidad varchar(50)not null,
 temperatura varchar(50)not null,
-observaciones varchar(50)not null,
+observaciones varchar(50),
+usuario int not null,
 estado bit not null,
-primary key(id)
+primary key(id),
+index fk_usuario_registro_nubosidad(usuario),
+    foreign key (usuario)
+    references usuario(id)
+    on delete cascade on update cascade
 );
 
 create table telescopio
@@ -270,11 +271,16 @@ id int auto_increment not null,
 fecha date not null,
 hora varchar(50) not null,
 cantidad_manchas varchar(50)not null,
+usuario int not null,
 estado bit not null,
 primary key(id),
-telescopio int,
 camara int,
+telescopio int,
 software int,
+index fk_usuario_actividad_solar(usuario),
+    foreign key (usuario)
+    references usuario(id)
+    on delete cascade on update cascade,
 index fk_telescopio_actividad_solar(telescopio),
     foreign key (telescopio)
     references telescopio(id)

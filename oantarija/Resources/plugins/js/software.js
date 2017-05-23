@@ -1,46 +1,30 @@
 var est = true;
-//Restringir Numeros
 $(document).ready(function () {
-    ListarTipoGrupo();
+    ListarSoftware();
 })
-
 $('#activo').click(function () {
     est = true;
-    //alert(est);
-
 });
 $('#inactivo').click(function () {
     est = false;
-    //alert(est);
 });
-
-
-
-
 function CargarEstadoEnChck(flag) {
     if (flag) {
-        //alert('Cargando estado true');
         $('#activo').prop('checked', true);
     }
     else {
-        //alert('Cargando estado false');
         $('#inactivo').prop('checked', true);
     }
-
 }
-
-
-
 function Nuevo() {
     LimpiarCampos();
     est = true;   
     CargarEstadoEnChck(est);
-    $('#modalDatos').modal('open');
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">CREAR NUEVO TIPO DE GRUPO</p>';
+    $('#campo_estado').hide();
+    $('#modalSoftware').modal('open');
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">CREAR NUEVA Software</p>';
     $('#cabeceraModal').html(codigo);
 };
-
-
 $('#aceptar').click(function () {
     if (EvaluarVacios()) {
         Guardar();
@@ -48,11 +32,19 @@ $('#aceptar').click(function () {
 });
 $('#cancelar').click(function () {
     LimpiarCampos();
-    $('#modalDatos').modal('close');
+    $('#modalSoftware').modal('close');
 });
 function EvaluarVacios() {
     if ($('#nombre').val() == '') {
         Materialize.toast('El campo nombre no puede estar vacio!', 8000);
+        return false;
+    }
+    if ($('#objetivo').val() == '') {
+        Materialize.toast('El campo objetivo no puede estar vacio!', 8000);
+        return false;
+    }
+    if ($('#descripcion').val() == '') {
+        Materialize.toast('El campo descripcion no puede estar vacio!', 8000);
         return false;
     }
     else {
@@ -62,75 +54,69 @@ function EvaluarVacios() {
 function Guardar() {
     var i = $('#id').val();
     var nom = $('#nombre').val();
-    $.getJSON("/TipoGrupo/GuardarTipoGrupo", { id: i, nombre: nom, estado: est }, function (e) {
+    var obje = $('#objetivo').val();
+    var des = $('#descripcion').val();
+    $.getJSON("/Software/GuardarSoftware", { id: i, nombre: nom, objetivo: obje, descripcion: des, estado: est }, function (e) {
         if (e != "") {
             Materialize.toast(e, 8000);
         }
         else {
             Materialize.toast('Registro exitoso!', 8000);
             LimpiarCampos();
-            $('#modalDatos').modal('close');
-            ListarTipoGrupo();
+            $('#modalSoftware').modal('close');
+            ListarSoftware();
         }
     });
-    ListarTipoGrupo();
+    ListarSoftware();
 };
 function Editar(id) {
     var o = { id: id };
-    $.getJSON("/TipoGrupo/GetTipoGrupo", o, function (obj) {
+    $.getJSON("/Software/GetSoftware", o, function (obj) {
 
-        var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR TIPO DE GRUPO ' + obj.nombre + '</p>';
+        var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR SOFTWARE ' + obj.nom + '</p>';
         $('#cabeceraModal').html(codigo);
         $("#id").val(id);
-        $("#nombre").val(obj.nombre);
+        $('#nombre').val(obj.nom);
+        $('#objetivo').val(obj.obje);
+        $('#descripcion').val(obj.des);        
         est = obj.estado;
         CargarEstadoEnChck(est);
-        //Activar Campos
         Materialize.updateTextFields();
     });
-
-    $('#campo_estado').show();
-    $('#modalDatos').modal('open');
+    $('#modalSoftware').modal('open');
 };
 
 function LimpiarCampos() {
     $('#id').val(0);
     $('#nombre').val('');
+    $('#objetivo').val('');
+    $('#descripcion').val('');
 };
-function ListarTipoGrupo() {
-    $.getJSON("/TipoGrupo/ListarTipoGrupo", null, function (cadena) {
+function ListarSoftware() {
+    $.getJSON("/Software/ListarSoftware", null, function (cadena) {
         $("#tabla").html(cadena);
     });
     $('#btnListar').show();
-    //$('#datatable').datatable();
 };
-
-
-
 //Funciones para eliminar
-function ModalConfirmar(id,nom) {
-    //alert(id + nom);
+function ModalConfirmar(id) {
     $('#idEliminar').val(id);
-    $('#nomEliminar').val(nom);
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">Esta seguro que desea Eliminar el grupo ' + nom + '?</p>';
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">Esta seguro que desea eliminar el Software?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');
 }
 $('#aceptarEliminar').click(function () {
     Eliminar($('#idEliminar').val());
     $('#modalEliminar').modal('close');
-    Materialize.toast('El tipo de grupo fue eliminado exitosamente!', 8000);
-    ListarTipoGrupo();
+    Materialize.toast('El Software fue eliminado exitosamente!', 8000);
+    ListarSoftware();
 });
 $('#cancelarEliminar').click(function () {
     $('#idEliminar').val('');
-    $('#nomEliminar').val('');
     $('#modalEliminar').modal('close');
 });
 
 function Eliminar(id) {
     var o = { id: id };
-    $.getJSON("/TipoGrupo/DeleteTipoGrupo", o, function (e) {
-        ListarTipoGrupo();
-    });
+    $.getJSON("/Software/DeleteSoftware", o, function (e) { });
 };

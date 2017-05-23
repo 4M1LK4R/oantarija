@@ -18,11 +18,13 @@ namespace oantarija.Models
         public System.DateTime fecha { get; set; }
         public string hora { get; set; }
         public string cantidad_manchas { get; set; }
+        public int usuario { get; set; }
         public bool estado { get; set; }
-        public Nullable<int> telescopio { get; set; }
         public Nullable<int> camara { get; set; }
+        public Nullable<int> telescopio { get; set; }
         public Nullable<int> software { get; set; }
     
+        public virtual usuario usuario1 { get; set; }
         public virtual telescopio telescopio1 { get; set; }
         public virtual camara camara1 { get; set; }
         public virtual software software1 { get; set; }

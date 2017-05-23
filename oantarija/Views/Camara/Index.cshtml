@@ -1,21 +1,21 @@
 ﻿
 @{
-    ViewBag.Title = "Telescopios";
+    ViewBag.Title = "Camaras";
 }
 <div class="container">
 
     <div class="row">
         <center>
-            <h3 class="white-text">Telescopios</h3>
-            <p class="white-text flow-text">Administracion de Telescopios.</p>
+            <h3 class="white-text">Camaras</h3>
+            <p class="white-text flow-text">Administracion de Camaras.</p>
         </center>
         <hr>
         <br>
         <div class="col s12 m12 l12">
             <center>
-                <p class="white-text flow-text">Telescopios registrados</p>
+                <p class="white-text flow-text">Camaras registradas</p>
             </center>
-            <a id="btnListar" onclick="CrearDataTable();" class="btn teal waves-effect"><i class="icon-list-numbered"></i>Mostrar Telescopios</a>
+            <a id="btnListar" onclick="CrearDataTable();" class="btn teal waves-effect"><i class="icon-list-numbered"></i>Mostrar Camaras</a>
         </div>
     </div>
     <div class="row white">
@@ -32,7 +32,7 @@
 
 </div>
 <!-- Modal Structure Reserva-->
-<div id="modalTelescopio" class="modal modal-fixed-footer">
+<div id="modalCamara" class="modal modal-fixed-footer">
     <div class="modal-content">
         <center>
             <div id="cabeceraModal">
@@ -51,23 +51,8 @@
                 </div>
                 <div class="input-field col s12 m12 l12">
                     <i class="icon-right-dir prefix"></i>
-                    <input id="tipo" type="text">
-                    <label for="tipo">Tipo</label>
-                </div>
-                <div class="input-field col s12 m12 l12">
-                    <i class="icon-right-dir prefix"></i>
-                    <input id="diametro" type="text">
-                    <label for="diametro">Diametro</label>
-                </div>
-                <div class="input-field col s12 m12 l12">
-                    <i class="icon-right-dir prefix"></i>
-                    <input id="dis_focal" type="text">
-                    <label for="dis_focal">Distancia Focal</label>
-                </div>
-                <div class="input-field col s12 m12 l12">
-                    <i class="icon-right-dir prefix"></i>
-                    <input id="montura" type="text">
-                    <label for="montura">Montura</label>
+                    <input id="dim_chip" type="text">
+                    <label for="dim_chip">Dimension Chip</label>
                 </div>
             </div>
             <p class="grey-text">Estado:</p>
@@ -110,5 +95,5 @@
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/telescopio")
+    @Scripts.Render("~/bundles/camara")
 }

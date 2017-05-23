@@ -175,6 +175,6 @@ C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\bin\es\Microsoft.Owin.Secu
 C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\obj\Debug\oantarija.csprojResolveAssemblyReference.cache
 C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\obj\Debug\oantarija.dll
 C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\obj\Debug\oantarija.pdb
+C:\Users\Amilkar\Documents\GitHub\oantarija\oantarija\obj\Debug\oantarija.csprojResolveAssemblyReference.cache

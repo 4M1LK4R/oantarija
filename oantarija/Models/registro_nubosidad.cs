@@ -16,9 +16,13 @@ namespace oantarija.Models
     {
         public int id { get; set; }
         public System.DateTime fecha { get; set; }
+        public System.TimeSpan hora { get; set; }
         public string nubosidad { get; set; }
         public string temperatura { get; set; }
         public string observaciones { get; set; }
+        public int usuario { get; set; }
         public bool estado { get; set; }
+    
+        public virtual usuario usuario1 { get; set; }
     }
 }

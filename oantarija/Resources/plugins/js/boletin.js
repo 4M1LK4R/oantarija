@@ -32,7 +32,7 @@ function CargarEstadoEnChck(flag) {
 
 function Nuevo() {
     LimpiarCampos();
-    est = true;   
+    est = true;
     CargarEstadoEnChck(est);
     $('#modalDatos').modal('open');
     var codigo = '<p class="light-blue-text text-darken-4 flow-text">CREAR NUEVO BOLETIN</p>';
@@ -61,7 +61,9 @@ function EvaluarVacios() {
 function Guardar() {
     var i = $('#id').val();
     var nom = $('#nombre').val();
-    $.getJSON("/Boletin/GuardarBoletin", { id: i, nombre: nom, estado: est }, function (e) {
+    var ur = $('#url').val();
+    var des = $('#descripcion').val();
+    $.getJSON("/Boletin/GuardarBoletin", { id: i, nombre: nom, descripcion:des, url: ur, estado: est }, function (e) {
         if (e != "") {
             Materialize.toast(e, 8000);
         }
@@ -82,6 +84,8 @@ function Editar(id) {
         $('#cabeceraModal').html(codigo);
         $("#id").val(id);
         $("#nombre").val(obj.nombre);
+        $("#descripcion").val(obj.descripcion);
+        $("#url").val(obj.url);
         est = obj.estado;
         CargarEstadoEnChck(est);
         //Activar Campos
@@ -95,9 +99,11 @@ function Editar(id) {
 function LimpiarCampos() {
     $('#id').val(0);
     $('#nombre').val('');
+    $('#descripcion').val('');
+    $('#url').val('');
 };
 function ListarBoletines() {
-    $.getJSON("/Boletin/ListarBoletines", null, function (cadena) {
+    $.getJSON("/Boletin/ListarBoletines", { usu : $('#usu').val()}, function (cadena) {
         $("#tabla").html(cadena);
     });
     $('#btnListar').show();
@@ -107,7 +113,7 @@ function ListarBoletines() {
 
 
 //Funciones para eliminar
-function ModalConfirmar(id,nom) {
+function ModalConfirmar(id, nom) {
     //alert(id + nom);
     $('#idEliminar').val(id);
     $('#nomEliminar').val(nom);
@@ -129,5 +135,7 @@ $('#cancelarEliminar').click(function () {
 
 function Eliminar(id) {
     var o = { id: id };
-    $.getJSON("/Boletin/DeleteBoletin", o, function (e) { });
+    $.getJSON("/Boletin/DeleteBoletin", o, function (e) {
+        ListarBoletines();
+    });
 };

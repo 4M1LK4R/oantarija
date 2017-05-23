@@ -141,7 +141,7 @@ function ListarHorarios() {
 function ModalConfirmar(id, nom) {
     $('#idEliminar').val(id);
     $('#nomEliminar').val(nom);
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea Eliminar el horario ' + nom + '?</p>';
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">Esta seguro que desea Eliminar el horario ' + nom + '?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');
 }
@@ -150,6 +150,7 @@ $('#aceptarEliminar').click(function () {
     $('#modalEliminar').modal('close');
     Materialize.toast('El horario fue eliminado exitosamente!', 8000);
     ListarHorarios();
+    
 });
 $('#cancelarEliminar').click(function () {
     $('#idEliminar').val('');
@@ -159,5 +160,7 @@ $('#cancelarEliminar').click(function () {
 
 function Eliminar(id) {
     var o = { id: id };
-    $.getJSON("/Horario/DeleteHorario", o, function (e) { });
+    $.getJSON("/Horario/DeleteHorario", o, function (e) {
+        ListarHorarios();
+    });
 };

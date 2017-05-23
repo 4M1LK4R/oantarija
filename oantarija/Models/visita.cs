@@ -15,6 +15,17 @@ namespace oantarija.Models
     public partial class visita
     {
         public int id { get; set; }
+        public System.DateTime fecha { get; set; }
+        public Nullable<System.TimeSpan> hora_entrada { get; set; }
+        public Nullable<System.TimeSpan> hora_salida { get; set; }
+        public int cantidad_personas { get; set; }
+        public string proposito { get; set; }
+        public bool vehiculo { get; set; }
+        public string placa_vehiculo { get; set; }
+        public string tipo_vehiculo { get; set; }
+        public string color_vehiculo { get; set; }
+        public string procedencia { get; set; }
+        public int usuario { get; set; }
         public bool estado { get; set; }
     
         public virtual reserva reserva { get; set; }

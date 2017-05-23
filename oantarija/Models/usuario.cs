@@ -17,8 +17,10 @@ namespace oantarija.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
+            this.actividad_solar = new HashSet<actividad_solar>();
             this.adicionar_reserva = new HashSet<adicionar_reserva>();
             this.inscripcion = new HashSet<inscripcion>();
+            this.registro_nubosidad = new HashSet<registro_nubosidad>();
             this.reserva = new HashSet<reserva>();
             this.suscripcion = new HashSet<suscripcion>();
         }
@@ -31,10 +33,14 @@ namespace oantarija.Models
         public bool estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<actividad_solar> actividad_solar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<adicionar_reserva> adicionar_reserva { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inscripcion> inscripcion { get; set; }
         public virtual persona persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<registro_nubosidad> registro_nubosidad { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reserva> reserva { get; set; }
         public virtual rol rol1 { get; set; }

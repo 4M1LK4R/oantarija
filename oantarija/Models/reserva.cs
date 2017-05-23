@@ -24,7 +24,6 @@ namespace oantarija.Models
         public int id { get; set; }
         public System.DateTime fecha { get; set; }
         public int cantidad { get; set; }
-        public bool vehiculo { get; set; }
         public int horario { get; set; }
         public int usuario { get; set; }
         public int tipo_grupo { get; set; }

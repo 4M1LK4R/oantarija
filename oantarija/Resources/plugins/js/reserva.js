@@ -1,5 +1,3 @@
-var est = true;
-var v = true;
 //Restringir Numeros
 $(document).ready(function () {
     ListarReservas();
@@ -9,24 +7,9 @@ $(document).ready(function () {
     $('#cantidad').numeric();
     $('#cantidadProponer').numeric();
 })
-$('#vhiSi').click(function () {
-    v = true;
-});
-$('#vhiNo').click(function () {
-    v = false;
-});
-function CargarVehiculoEnChck(flag) {
-    if (flag) {
-        $('#vhiSi').prop('checked', true);
-    }
-    else {
-        $('#vhiNo').prop('checked', true);
-    }
-}
+
 function Nuevo() {
     LimpiarCampos();
-    v = true;
-    CargarVehiculoEnChck(v);
     $('#modalDatos').modal('open');
     var codigo = '<p class="light-blue-text text-darken-4 flow-text">NUEVA RESERVA</p>';
     $('#cabeceraModal').html(codigo);
@@ -80,7 +63,7 @@ function Guardar() {
     var can = $('#cantidad').val();
     var tipgru = $('#selectTG').val();
     var usu = $('#usu').val();
-    $.getJSON("/Reserva/GuardarReserva", { id: i, fecha: fech, horario: hor, temas: tem.toString(), cantidad: can, tg: tipgru, vehiculo: v, usuario: usu, estado: est }, function (e) {
+    $.getJSON("/Reserva/GuardarReserva", { id: i, fecha: fech, horario: hor, temas: tem.toString(), cantidad: can, tg: tipgru, usuario: usu, estado: true }, function (e) {
         if (e != "") {
             if (e.err == "proponer") {
                 $('#idReservaProponer').val(e.iid);
@@ -107,7 +90,7 @@ function Guardar() {
             ListarReservas();
         }
     });
-    ListarReservas();
+    //ListarReservas();
 };
 
 $('#aceptarProponer').click(function () {
@@ -171,7 +154,6 @@ function Editar(id) {
         $('#selectTG').val(obj.tg);
         $('#usu').val(obj.usu);
         $('select').material_select();
-        CargarVehiculoEnChck(obj.veh);
         //Activar Campos
         Materialize.updateTextFields();
     });
@@ -233,7 +215,9 @@ $('#cancelarEliminar').click(function () {
 
 function Eliminar(id) {
     var o = { id: id };
-    $.getJSON("/Reserva/DeleteReserva", o, function (e) { });
+    $.getJSON("/Reserva/DeleteReserva", o, function (e) {
+        ListarReservas();
+    });
 };
 
 //BuscarFecha

@@ -13,9 +13,10 @@
           <Property Name="fecha" Type="date" Nullable="false" />
           <Property Name="hora" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cantidad_manchas" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="usuario" Type="int" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
-          <Property Name="telescopio" Type="int" />
           <Property Name="camara" Type="int" />
+          <Property Name="telescopio" Type="int" />
           <Property Name="software" Type="int" />
         </EntityType>
         <EntityType Name="adicionar_reserva">
@@ -33,6 +34,9 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="camara">
@@ -73,6 +77,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
           <Property Name="boletin" Type="int" Nullable="false" />
           <Property Name="suscripcion" Type="int" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
@@ -111,9 +116,11 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="hora" Type="time" Precision="0" Nullable="false" />
           <Property Name="nubosidad" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="temperatura" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="observaciones" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="observaciones" Type="varchar" MaxLength="50" />
+          <Property Name="usuario" Type="int" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="reserva">
@@ -123,7 +130,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
-          <Property Name="vehiculo" Type="bit" Nullable="false" />
           <Property Name="horario" Type="int" Nullable="false" />
           <Property Name="usuario" Type="int" Nullable="false" />
           <Property Name="tipo_grupo" Type="int" Nullable="false" />
@@ -213,9 +219,34 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="hora_entrada" Type="time" Precision="0" />
+          <Property Name="hora_salida" Type="time" Precision="0" />
+          <Property Name="cantidad_personas" Type="int" Nullable="false" />
+          <Property Name="proposito" Type="varchar" MaxLength="50" />
+          <Property Name="vehiculo" Type="bit" Nullable="false" />
+          <Property Name="placa_vehiculo" Type="varchar" MaxLength="50" />
+          <Property Name="tipo_vehiculo" Type="varchar" MaxLength="50" />
+          <Property Name="color_vehiculo" Type="varchar" MaxLength="50" />
+          <Property Name="procedencia" Type="varchar" MaxLength="50" />
+          <Property Name="usuario" Type="int" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="actividad_solar_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="actividad_solar" Type="Self.actividad_solar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="actividad_solar">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="actividad_solar_ibfk_2">
           <End Role="telescopio" Type="Self.telescopio" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -229,7 +260,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="actividad_solar_ibfk_2">
+        <Association Name="actividad_solar_ibfk_3">
           <End Role="camara" Type="Self.camara" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -243,7 +274,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="actividad_solar_ibfk_3">
+        <Association Name="actividad_solar_ibfk_4">
           <End Role="software" Type="Self.software" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -380,6 +411,20 @@
             </Principal>
             <Dependent Role="inscripcion">
               <PropertyRef Name="curso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registro_nubosidad_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="registro_nubosidad" Type="Self.registro_nubosidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="registro_nubosidad">
+              <PropertyRef Name="usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -533,14 +578,18 @@
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="oantarija" store:Type="Tables" />
           <EntitySet Name="visita" EntityType="Self.visita" Schema="oantarija" store:Type="Tables" />
           <AssociationSet Name="actividad_solar_ibfk_1" Association="Self.actividad_solar_ibfk_1">
-            <End Role="telescopio" EntitySet="telescopio" />
+            <End Role="usuario" EntitySet="usuario" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
           <AssociationSet Name="actividad_solar_ibfk_2" Association="Self.actividad_solar_ibfk_2">
-            <End Role="camara" EntitySet="camara" />
+            <End Role="telescopio" EntitySet="telescopio" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
           <AssociationSet Name="actividad_solar_ibfk_3" Association="Self.actividad_solar_ibfk_3">
+            <End Role="camara" EntitySet="camara" />
+            <End Role="actividad_solar" EntitySet="actividad_solar" />
+          </AssociationSet>
+          <AssociationSet Name="actividad_solar_ibfk_4" Association="Self.actividad_solar_ibfk_4">
             <End Role="software" EntitySet="software" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
@@ -579,6 +628,10 @@
           <AssociationSet Name="inscripcion_ibfk_2" Association="Self.inscripcion_ibfk_2">
             <End Role="curso" EntitySet="curso" />
             <End Role="inscripcion" EntitySet="inscripcion" />
+          </AssociationSet>
+          <AssociationSet Name="registro_nubosidad_ibfk_1" Association="Self.registro_nubosidad_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="registro_nubosidad" EntitySet="registro_nubosidad" />
           </AssociationSet>
           <AssociationSet Name="reserva_ibfk_1" Association="Self.reserva_ibfk_1">
             <End Role="horario" EntitySet="horario" />
@@ -630,13 +683,15 @@
           <Property Name="fecha" Type="DateTime" Nullable="false" />
           <Property Name="hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cantidad_manchas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <Property Name="telescopio" Type="Int32" />
           <Property Name="camara" Type="Int32" />
+          <Property Name="telescopio" Type="Int32" />
           <Property Name="software" Type="Int32" />
-          <NavigationProperty Name="telescopio1" Relationship="Self.actividad_solar_ibfk_1" FromRole="actividad_solar" ToRole="telescopio" />
-          <NavigationProperty Name="camara1" Relationship="Self.actividad_solar_ibfk_2" FromRole="actividad_solar" ToRole="camara" />
-          <NavigationProperty Name="software1" Relationship="Self.actividad_solar_ibfk_3" FromRole="actividad_solar" ToRole="software" />
+          <NavigationProperty Name="usuario1" Relationship="Self.actividad_solar_ibfk_1" FromRole="actividad_solar" ToRole="usuario" />
+          <NavigationProperty Name="telescopio1" Relationship="Self.actividad_solar_ibfk_2" FromRole="actividad_solar" ToRole="telescopio" />
+          <NavigationProperty Name="camara1" Relationship="Self.actividad_solar_ibfk_3" FromRole="actividad_solar" ToRole="camara" />
+          <NavigationProperty Name="software1" Relationship="Self.actividad_solar_ibfk_4" FromRole="actividad_solar" ToRole="software" />
         </EntityType>
         <EntityType Name="adicionar_reserva">
           <Key>
@@ -655,6 +710,9 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="envio" Relationship="Self.envio_ibfk_1" FromRole="boletin" ToRole="envio" />
         </EntityType>
@@ -667,7 +725,7 @@
           <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dim_chip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_2" FromRole="camara" ToRole="actividad_solar" />
+          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_3" FromRole="camara" ToRole="actividad_solar" />
         </EntityType>
         <EntityType Name="curso">
           <Key>
@@ -702,6 +760,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
           <Property Name="boletin" Type="Int32" Nullable="false" />
           <Property Name="suscripcion" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
@@ -747,10 +806,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="hora" Type="Time" Nullable="false" />
           <Property Name="nubosidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="temperatura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observaciones" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="usuario1" Relationship="Self.registro_nubosidad_ibfk_1" FromRole="registro_nubosidad" ToRole="usuario" />
         </EntityType>
         <EntityType Name="reserva">
           <Key>
@@ -759,7 +821,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fecha" Type="DateTime" Nullable="false" />
           <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="vehiculo" Type="Boolean" Nullable="false" />
           <Property Name="horario" Type="Int32" Nullable="false" />
           <Property Name="usuario" Type="Int32" Nullable="false" />
           <Property Name="tipo_grupo" Type="Int32" Nullable="false" />
@@ -799,7 +860,7 @@
           <Property Name="objetivo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_3" FromRole="software" ToRole="actividad_solar" />
+          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_4" FromRole="software" ToRole="actividad_solar" />
         </EntityType>
         <EntityType Name="suscripcion">
           <Key>
@@ -824,7 +885,7 @@
           <Property Name="dis_focal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="montura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_1" FromRole="telescopio" ToRole="actividad_solar" />
+          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_2" FromRole="telescopio" ToRole="actividad_solar" />
         </EntityType>
         <EntityType Name="tema">
           <Key>
@@ -859,9 +920,11 @@
           <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="rol" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="actividad_solar" Relationship="Self.actividad_solar_ibfk_1" FromRole="usuario" ToRole="actividad_solar" />
           <NavigationProperty Name="adicionar_reserva" Relationship="Self.adicionar_reserva_ibfk_1" FromRole="usuario" ToRole="adicionar_reserva" />
           <NavigationProperty Name="inscripcion" Relationship="Self.inscripcion_ibfk_1" FromRole="usuario" ToRole="inscripcion" />
           <NavigationProperty Name="persona" Relationship="Self.usuario_ibfk_1" FromRole="usuario" ToRole="persona" />
+          <NavigationProperty Name="registro_nubosidad" Relationship="Self.registro_nubosidad_ibfk_1" FromRole="usuario" ToRole="registro_nubosidad" />
           <NavigationProperty Name="reserva" Relationship="Self.reserva_ibfk_2" FromRole="usuario" ToRole="reserva" />
           <NavigationProperty Name="rol1" Relationship="Self.usuario_ibfk_2" FromRole="usuario" ToRole="rol" />
           <NavigationProperty Name="suscripcion" Relationship="Self.suscripcion_ibfk_1" FromRole="usuario" ToRole="suscripcion" />
@@ -871,10 +934,35 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="hora_entrada" Type="Time" />
+          <Property Name="hora_salida" Type="Time" />
+          <Property Name="cantidad_personas" Type="Int32" Nullable="false" />
+          <Property Name="proposito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vehiculo" Type="Boolean" Nullable="false" />
+          <Property Name="placa_vehiculo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_vehiculo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="color_vehiculo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="procedencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="reserva" Relationship="Self.visita_ibfk_1" FromRole="visita" ToRole="reserva" />
         </EntityType>
         <Association Name="actividad_solar_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="actividad_solar" Type="Self.actividad_solar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="actividad_solar">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="actividad_solar_ibfk_2">
           <End Role="telescopio" Type="Self.telescopio" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -888,7 +976,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="actividad_solar_ibfk_2">
+        <Association Name="actividad_solar_ibfk_3">
           <End Role="camara" Type="Self.camara" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -902,7 +990,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="actividad_solar_ibfk_3">
+        <Association Name="actividad_solar_ibfk_4">
           <End Role="software" Type="Self.software" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1084,6 +1172,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="registro_nubosidad_ibfk_1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="registro_nubosidad" Type="Self.registro_nubosidad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="registro_nubosidad">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="reserva_ibfk_2">
           <End Role="usuario" Type="Self.usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1192,14 +1294,18 @@
           <EntitySet Name="usuario" EntityType="Self.usuario" />
           <EntitySet Name="visita" EntityType="Self.visita" />
           <AssociationSet Name="actividad_solar_ibfk_1" Association="Self.actividad_solar_ibfk_1">
-            <End Role="telescopio" EntitySet="telescopio" />
+            <End Role="usuario" EntitySet="usuario" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
           <AssociationSet Name="actividad_solar_ibfk_2" Association="Self.actividad_solar_ibfk_2">
-            <End Role="camara" EntitySet="camara" />
+            <End Role="telescopio" EntitySet="telescopio" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
           <AssociationSet Name="actividad_solar_ibfk_3" Association="Self.actividad_solar_ibfk_3">
+            <End Role="camara" EntitySet="camara" />
+            <End Role="actividad_solar" EntitySet="actividad_solar" />
+          </AssociationSet>
+          <AssociationSet Name="actividad_solar_ibfk_4" Association="Self.actividad_solar_ibfk_4">
             <End Role="software" EntitySet="software" />
             <End Role="actividad_solar" EntitySet="actividad_solar" />
           </AssociationSet>
@@ -1251,6 +1357,10 @@
             <End Role="persona" EntitySet="persona" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
+          <AssociationSet Name="registro_nubosidad_ibfk_1" Association="Self.registro_nubosidad_ibfk_1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="registro_nubosidad" EntitySet="registro_nubosidad" />
+          </AssociationSet>
           <AssociationSet Name="reserva_ibfk_2" Association="Self.reserva_ibfk_2">
             <End Role="usuario" EntitySet="usuario" />
             <End Role="reserva" EntitySet="reserva" />
@@ -1289,9 +1399,10 @@
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="hora" ColumnName="hora" />
                 <ScalarProperty Name="cantidad_manchas" ColumnName="cantidad_manchas" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="telescopio" ColumnName="telescopio" />
                 <ScalarProperty Name="camara" ColumnName="camara" />
+                <ScalarProperty Name="telescopio" ColumnName="telescopio" />
                 <ScalarProperty Name="software" ColumnName="software" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1311,6 +1422,9 @@
               <MappingFragment StoreEntitySet="boletin">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1356,6 +1470,7 @@
             <EntityTypeMapping TypeName="oantarijaModel.envio">
               <MappingFragment StoreEntitySet="envio">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
                 <ScalarProperty Name="boletin" ColumnName="boletin" />
                 <ScalarProperty Name="suscripcion" ColumnName="suscripcion" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
@@ -1398,9 +1513,11 @@
               <MappingFragment StoreEntitySet="registro_nubosidad">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
                 <ScalarProperty Name="nubosidad" ColumnName="nubosidad" />
                 <ScalarProperty Name="temperatura" ColumnName="temperatura" />
                 <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1411,7 +1528,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="vehiculo" ColumnName="vehiculo" />
                 <ScalarProperty Name="horario" ColumnName="horario" />
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="tipo_grupo" ColumnName="tipo_grupo" />
@@ -1510,6 +1626,17 @@
             <EntityTypeMapping TypeName="oantarijaModel.visita">
               <MappingFragment StoreEntitySet="visita">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora_entrada" ColumnName="hora_entrada" />
+                <ScalarProperty Name="hora_salida" ColumnName="hora_salida" />
+                <ScalarProperty Name="cantidad_personas" ColumnName="cantidad_personas" />
+                <ScalarProperty Name="proposito" ColumnName="proposito" />
+                <ScalarProperty Name="vehiculo" ColumnName="vehiculo" />
+                <ScalarProperty Name="placa_vehiculo" ColumnName="placa_vehiculo" />
+                <ScalarProperty Name="tipo_vehiculo" ColumnName="tipo_vehiculo" />
+                <ScalarProperty Name="color_vehiculo" ColumnName="color_vehiculo" />
+                <ScalarProperty Name="procedencia" ColumnName="procedencia" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>

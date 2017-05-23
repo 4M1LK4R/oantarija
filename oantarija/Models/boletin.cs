@@ -22,6 +22,9 @@ namespace oantarija.Models
     
         public int id { get; set; }
         public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public System.DateTime fecha_registro { get; set; }
+        public string url { get; set; }
         public bool estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

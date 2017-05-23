@@ -1,7 +1,7 @@
 var est = true;
 //Restringir Numeros
 $(document).ready(function () {
-    ListarTelescopios();
+    ListarCamaras();
 })
 
 $('#activo').click(function () {
@@ -36,8 +36,8 @@ function Nuevo() {
     est = true;   
     CargarEstadoEnChck(est);
     $('#campo_estado').hide();
-    $('#modalTelescopio').modal('open');
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">CREAR NUEVO TELESCOPIO</p>';
+    $('#modalCamara').modal('open');
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">CREAR NUEVA CAMARA</p>';
     $('#cabeceraModal').html(codigo);
 };
 
@@ -49,7 +49,7 @@ $('#aceptar').click(function () {
 });
 $('#cancelar').click(function () {
     LimpiarCampos();
-    $('#modalTelescopio').modal('close');
+    $('#modalCamara').modal('close');
 });
 function EvaluarVacios() {
     if ($('#nombre').val() == '') {
@@ -60,20 +60,8 @@ function EvaluarVacios() {
         Materialize.toast('El campo marca no puede estar vacio!', 8000);
         return false;
     }
-    if ($('#tipo').val() == '') {
-        Materialize.toast('El campo tipo no puede estar vacio!', 8000);
-        return false;
-    }
-    if ($('#diametro').val() == '') {
-        Materialize.toast('El campo diametro no puede estar vacio!', 8000);
-        return false;
-    }
-    if ($('#dis_focal').val() == '') {
-        Materialize.toast('El campo dis_focal no puede estar vacio!', 8000);
-        return false;
-    }
-    if ($('#montura').val() == '') {
-        Materialize.toast('El campo montura no puede estar vacio!', 8000);
+    if ($('#dim_chip').val() == '') {
+        Materialize.toast('El campo dimension de chip no puede estar vacio!', 8000);
         return false;
     }
     else {
@@ -84,58 +72,47 @@ function Guardar() {
     var i = $('#id').val();
     var nom = $('#nombre').val();
     var mar = $('#marca').val();
-    var tip = $('#tipo').val();
-    var dia = $('#diametro').val();
-    var dis_f = $('#dis_focal').val();
-    var mon = $('#dis_focal').val();
-    $.getJSON("/Telescopio/GuardarTelescopio", { id: i, nombre: nom, marca: mar, tipo: tip,diametro:dia,dis_focal:dis_f,montura:mon, estado: est }, function (e) {
+    var dim = $('#dim_chip').val();
+    $.getJSON("/Camara/GuardarCamara", { id: i, nombre: nom, marca: mar, dim_chip: dim, estado: est }, function (e) {
         if (e != "") {
             Materialize.toast(e, 8000);
         }
         else {
             Materialize.toast('Registro exitoso!', 8000);
             LimpiarCampos();
-            $('#modalTelescopio').modal('close');
-            ListarTelescopios();
+            $('#modalCamara').modal('close');
+            ListarCamaras();
         }
     });
-    ListarTelescopios();
+    ListarCamaras();
 };
 function Editar(id) {
     var o = { id: id };
-    $.getJSON("/Telescopio/GetTelescopio", o, function (obj) {
+    $.getJSON("/Camara/GetCamara", o, function (obj) {
 
-        var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR TELESCOPIO ' + obj.nom + '</p>';
+        var codigo = '<p class="light-blue-text text-darken-4 flow-text">EDITAR CAMARA ' + obj.nom + '</p>';
         $('#cabeceraModal').html(codigo);
 
         $("#id").val(id);
         $('#nombre').val(obj.nom);
         $('#marca').val(obj.mar);
-        $('#tipo').val(obj.tip);
-        $('#diametro').val(obj.dia);
-        $('#dis_focal').val(obj.dis_f);
-        $('#dis_focal').val(obj.mon);
+        $('#dim_chip').val(obj.dim_ch);        
         est = obj.estado;
         CargarEstadoEnChck(est);
         //Activar Campos
         Materialize.updateTextFields();
     });
-
-    $('#campo_estado').show();
-    $('#modalTelescopio').modal('open');
+    $('#modalCamara').modal('open');
 };
 
 function LimpiarCampos() {
     $('#id').val(0);
     $('#nombre').val('');
     $('#marca').val('');
-    $('#tipo').val('');
-    $('#diametro').val('');
-    $('#dis_focal').val('');
-    $('#dis_focal').val('');
+    $('#dim_chip').val('');
 };
-function ListarTelescopios() {
-    $.getJSON("/Telescopio/ListarTelescopio", null, function (cadena) {
+function ListarCamaras() {
+    $.getJSON("/Camara/ListarCamara", null, function (cadena) {
         $("#tabla").html(cadena);
     });
     $('#btnListar').show();
@@ -145,15 +122,15 @@ function ListarTelescopios() {
 function ModalConfirmar(id) {
     //alert(id + nom);
     $('#idEliminar').val(id);
-    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea eliminar el Telescopio?</p>';
+    var codigo = '<p class="light-blue-text text-darken-4 flow-text">¿Está seguro que desea eliminar la Camara?</p>';
     $('#cabeceraModalEliminar').html(codigo);
     $('#modalEliminar').modal('open');
 }
 $('#aceptarEliminar').click(function () {
     Eliminar($('#idEliminar').val());
     $('#modalEliminar').modal('close');
-    Materialize.toast('El Telescopio fue eliminado exitosamente!', 8000);
-    ListarTelescopios();
+    Materialize.toast('La Camara fue eliminado exitosamente!', 8000);
+    ListarCamaras();
 });
 $('#cancelarEliminar').click(function () {
     $('#idEliminar').val('');
@@ -162,5 +139,5 @@ $('#cancelarEliminar').click(function () {
 
 function Eliminar(id) {
     var o = { id: id };
-    $.getJSON("/Telescopio/DeleteTelescopio", o, function (e) { });
+    $.getJSON("/Camara/DeleteCamara", o, function (e) { });
 };

@@ -78,6 +78,12 @@ namespace oantarija
             bundles.Add(new ScriptBundle("~/bundles/telescopio").Include(
                 "~/Resources/plugins/js/telescopio.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/camara").Include(
+                "~/Resources/plugins/js/camara.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/software").Include(
+                "~/Resources/plugins/js/software.js"
+                ));
 
         }
     }

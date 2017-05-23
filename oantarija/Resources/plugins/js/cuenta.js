@@ -31,7 +31,6 @@ function EvaluarVacios() {
     }
 };
 function Guardar() {
-    alert('Llegando');
     var nom = $('#nombreRe').val();
     var ape = $('#apellidoRe').val();
     var cor = $('#correoRe').val();
@@ -52,11 +51,11 @@ function Guardar() {
 };
 
 function LimpiarCampos() {
-    $('#nik').val();
-    $('#pass').val();
-    $('#correoRe').val();
-    $('#nombreRe').val();
-    $('#apellidoRe').val();
-    $('#passRe').val();
-    //alert('Limpiando');
+    $('#nik').val('');
+    $('#pass').val('');
+    $('#correoRe').val('');
+    $('#nombreRe').val('');
+    $('#apellidoRe').val('');
+    $('#passRe').val('');
+  //  alert('Limpiando');
 };

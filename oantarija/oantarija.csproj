@@ -179,6 +179,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoletinController.cs" />
+    <Compile Include="Controllers\CamaraController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DisertanteController.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
+    <Compile Include="Controllers\SoftwareController.cs" />
     <Compile Include="Controllers\TelescopioController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\TipoGrupoController.cs" />
@@ -331,8 +333,10 @@
     <Content Include="Resources\plugins\jquery\jquery-1.11.2.min.js" />
     <Content Include="Resources\plugins\jquery\jquery-3.2.1.min.js" />
     <Content Include="Resources\plugins\jquery\jquery.numeric.js" />
+    <Content Include="Resources\plugins\js\software.js" />
     <Content Include="Resources\plugins\js\cuenta.js" />
     <Content Include="Resources\plugins\js\boletin.js" />
+    <Content Include="Resources\plugins\js\camara.js" />
     <Content Include="Resources\plugins\js\telescopio.js" />
     <Content Include="Resources\plugins\js\rol.js" />
     <Content Include="Resources\plugins\js\main.js" />
@@ -447,6 +451,8 @@
     <Content Include="Views\Reserva\Index.cshtml" />
     <Content Include="Views\RegistroNubosidad\Index.cshtml" />
     <Content Include="Views\Telescopio\Index.cshtml" />
+    <Content Include="Views\Camara\Index.cshtml" />
+    <Content Include="Views\Software\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

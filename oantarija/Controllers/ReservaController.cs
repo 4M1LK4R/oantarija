@@ -14,20 +14,41 @@ namespace oantarija.Controllers
         {
             return View();
         }
-        public ActionResult GuardarReserva(int id, string fecha, int horario, string temas, int cantidad, int tg, bool vehiculo, string usuario, bool estado)
+        public ActionResult GuardarReserva(int id, string fecha, int horario, string temas, int cantidad, int tg, string usuario, bool estado)
         {
-            int idusu = BD.usuario.Single(o => o.username == usuario).id;
+
+            int idusu = 0;
+            if (usuario == "admin@admin")
+            {
+                idusu = 1;
+            }
+            else
+            {
+                idusu = BD.usuario.Single(o => o.username == usuario).id;
+            }
             reserva obj;
 
             string error = "";
             if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == idusu) && id == 0)
-                error = "Ya tienes una reserva para esta fehca " + fecha + " con ese es horario y esa sala";
+            {
+                error = "Ya tienes una reserva para esta fecha y horario";
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == idusu))
+            {
+                error = "Ya tienes una reserva para esta fecha y horario";
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
 
-            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario))
+
+
+
+
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario) && id == 0)
             {
                 error = "proponer";
                 reserva re = BD.reserva.ToList().Single(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario);
-                
+
                 string tems = "";
                 bool flag = false;
                 foreach (var item in BD.detalle_reserva_tema.ToList().Where(o => o.reserva == re.id))
@@ -46,7 +67,6 @@ namespace oantarija.Controllers
                     tms = tems,
                     can = re.cantidad,
                     tg = re.tipo_grupo,
-                    veh = re.vehiculo,
                     usu = re.usuario1.username,
                     est = re.estado
                 };
@@ -63,7 +83,6 @@ namespace oantarija.Controllers
                     obj.cantidad = cantidad;
                     obj.usuario = idusu;
                     obj.tipo_grupo = tg;
-                    obj.vehiculo = vehiculo;
                     obj.estado = estado;
                     obj.usuario = idusu;
                     BD.reserva.Add(obj);
@@ -78,10 +97,9 @@ namespace oantarija.Controllers
                     obj.cantidad = cantidad;
                     obj.usuario = idusu;
                     obj.tipo_grupo = tg;
-                    obj.vehiculo = vehiculo;
                     obj.estado = estado;
                     obj.usuario = idusu;
-                
+
                     foreach (var item in BD.detalle_reserva_tema.Where(o => o.reserva == id))
                     {
                         BD.detalle_reserva_tema.Remove(item);
@@ -143,7 +161,16 @@ namespace oantarija.Controllers
         {
             if (fecha == "")
                 fecha = DateTime.Now.Date.ToString();
-            int idusu = BD.usuario.Single(o => o.username == usu).id;
+            int idusu = 0;
+            if (usu == "admin@admin")
+            {
+                idusu = 1;
+            }
+            else
+            {
+                idusu = BD.usuario.Single(o => o.username == usu).id;
+            }
+
             string cadena = "";
             cadena = "<table id='data' class='scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
@@ -182,7 +209,7 @@ namespace oantarija.Controllers
                 }
                 else
                 {
-                    cadena += "<a class='waves-effect waves-light btn btn-floating green'><i class='icon-user-plus' onclick='Sumarse(" + obj.id + ","+obj.cantidad+");'></i></a>&nbsp;";
+                    cadena += "<a class='waves-effect waves-light btn btn-floating green'><i class='icon-user-plus' onclick='Sumarse(" + obj.id + "," + obj.cantidad + ");'></i></a>&nbsp;";
                 }
                 cadena += "</td>";
                 cadena += "</tr>";
@@ -203,7 +230,7 @@ namespace oantarija.Controllers
                     temas += ",";
                 temas += item.tema.ToString();
                 flag = true;
-            }                
+            }
             var Reserva = new
             {
                 fech = obj.fecha.ToShortDateString(),
@@ -211,7 +238,6 @@ namespace oantarija.Controllers
                 tms = temas,
                 can = obj.cantidad,
                 tg = obj.tipo_grupo,
-                veh = obj.vehiculo,
                 usu = obj.usuario1.username,
                 est = obj.estado
             };
@@ -224,7 +250,7 @@ namespace oantarija.Controllers
             BD.SaveChanges();
             return Json(null, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AdicionarReserva(int idre,string usu, int cantidad)
+        public ActionResult AdicionarReserva(int idre, string usu, int cantidad)
         {
             reserva re = BD.reserva.Single(o => o.id == idre);
             re.cantidad += cantidad;
