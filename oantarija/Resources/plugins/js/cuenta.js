@@ -3,14 +3,11 @@ $(document).ready(function () {
 });
 var est = true;
 
-
 function Nuevo() {
     LimpiarCampos();
     est = true;
-    //CargarEstadoEnChck(est);
     $('#modalRegistro').modal('open');
 };
-
 
 $('#aceptar').click(function () {
     if (EvaluarVacios()) {
@@ -35,7 +32,6 @@ function Guardar() {
     var ape = $('#apellidoRe').val();
     var cor = $('#correoRe').val();
     var pas = $('#passRe').val();
-    //CrearCuenta(string nombre, string apellido, string correo, string pass)
     $.getJSON("/Cuenta/CrearCuenta", { nombre: nom, apellido:ape, correo: cor,pass:pas}, function (e) {
         if (e != "") {
             Materialize.toast(e, 8000);
@@ -57,5 +53,4 @@ function LimpiarCampos() {
     $('#nombreRe').val('');
     $('#apellidoRe').val('');
     $('#passRe').val('');
-  //  alert('Limpiando');
 };

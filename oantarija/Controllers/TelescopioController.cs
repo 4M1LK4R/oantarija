@@ -18,7 +18,7 @@ namespace oantarija.Controllers
         public ActionResult ListarTelescopio()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -94,15 +94,23 @@ namespace oantarija.Controllers
         {
             telescopio obj = BD.telescopio.Single(o => o.id == id);
 
-            var telescopio = new { nom = obj.nombre, mar = obj.marca, tip = obj.tipo, dia = obj.diametro,dis_f = obj.dis_focal, mon = obj.montura , estado = obj.estado };
+            var telescopio = new { nom = obj.nombre, mar = obj.marca, tip = obj.tipo, dia = obj.diametro, dis_f = obj.dis_focal, mon = obj.montura, estado = obj.estado };
             return Json(telescopio, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DeleteTelescopio(int id)
         {
-            telescopio obj = BD.telescopio.Single(o => o.id == id);
-            BD.telescopio.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                telescopio obj = BD.telescopio.Single(o => o.id == id);
+                BD.telescopio.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

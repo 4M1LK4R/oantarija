@@ -154,7 +154,7 @@ create table adicionar_reserva(
 create table visita
 (
 id int not null,
-fecha date not null,
+fecha_registro date not null,
 hora_entrada time,
 hora_salida time,
 cantidad_personas int not null,
@@ -172,6 +172,7 @@ index fk_reserva_visita(id),
     references reserva(id)
     on delete cascade on update cascade
 );
+
 create table suscripcion
 (
 id int auto_increment not null,

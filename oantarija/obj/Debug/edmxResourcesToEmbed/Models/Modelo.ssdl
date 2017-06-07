@@ -214,7 +214,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="fecha_registro" Type="date" Nullable="false" />
     <Property Name="hora_entrada" Type="time" Precision="0" />
     <Property Name="hora_salida" Type="time" Precision="0" />
     <Property Name="cantidad_personas" Type="int" Nullable="false" />

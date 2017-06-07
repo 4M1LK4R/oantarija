@@ -28,7 +28,6 @@ function CrearDataTable() {
     });
     $("select").val('10');
     //$('select').addClass("browser-default");
-    //$('select').material_select();
     $('select').material_select();
     $('#data').show();
     $('#btnListar').hide();

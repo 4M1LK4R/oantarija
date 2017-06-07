@@ -15,7 +15,7 @@ namespace oantarija.Models
     public partial class visita
     {
         public int id { get; set; }
-        public System.DateTime fecha { get; set; }
+        public System.DateTime fecha_registro { get; set; }
         public Nullable<System.TimeSpan> hora_entrada { get; set; }
         public Nullable<System.TimeSpan> hora_salida { get; set; }
         public int cantidad_personas { get; set; }

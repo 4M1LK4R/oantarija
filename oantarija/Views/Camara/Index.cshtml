@@ -3,34 +3,33 @@
     ViewBag.Title = "Camaras";
 }
 <div class="container">
-
     <div class="row">
         <center>
             <h3 class="white-text">Camaras</h3>
-            <p class="white-text flow-text">Administracion de Camaras.</p>
         </center>
         <hr>
         <br>
         <div class="col s12 m12 l12">
-            <center>
-                <p class="white-text flow-text">Camaras registradas</p>
-            </center>
             <a id="btnListar" onclick="CrearDataTable();" class="btn teal waves-effect"><i class="icon-list-numbered"></i>Mostrar Camaras</a>
         </div>
     </div>
-    <div class="row white">
-        <div class="col s12 m12 l12">
-            <div id="tabla" class="amk">
-            </div>
+</div>
+<div class="row">
+    <div class="col s12 m1 l1"></div>
+    <div class="col s12 m10 l10 white">
+        <div id="tabla" class="amk">
         </div>
     </div>
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal" onclick="Nuevo();">
-            <i class="large icon-plus-1"></i>
-        </a>
-    </div>
-
+    <div class="col s12 m1 l1"></div>
 </div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large teal" onclick="Nuevo();">
+        <i class="large icon-plus-1"></i>
+    </a>
+</div>
+
+
 <!-- Modal Structure Reserva-->
 <div id="modalCamara" class="modal modal-fixed-footer">
     <div class="modal-content">

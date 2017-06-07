@@ -194,6 +194,7 @@
     <Compile Include="Controllers\TelescopioController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\TipoGrupoController.cs" />
+    <Compile Include="Controllers\VisitaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -333,6 +334,7 @@
     <Content Include="Resources\plugins\jquery\jquery-1.11.2.min.js" />
     <Content Include="Resources\plugins\jquery\jquery-3.2.1.min.js" />
     <Content Include="Resources\plugins\jquery\jquery.numeric.js" />
+    <Content Include="Resources\plugins\js\visita.js" />
     <Content Include="Resources\plugins\js\software.js" />
     <Content Include="Resources\plugins\js\cuenta.js" />
     <Content Include="Resources\plugins\js\boletin.js" />
@@ -348,7 +350,6 @@
     <Content Include="Resources\plugins\js\disertante.js" />
     <Content Include="Resources\plugins\js\tipogrupo.js" />
     <Content Include="Resources\plugins\js\salas.js" />
-    <Content Include="Resources\plugins\js\reservar-visita.js" />
     <Content Include="Resources\plugins\materialize\css\materialize.css" />
     <Content Include="Resources\plugins\materialize\js\init.js" />
     <Content Include="Resources\plugins\materialize\js\materialize.js" />
@@ -453,6 +454,7 @@
     <Content Include="Views\Telescopio\Index.cshtml" />
     <Content Include="Views\Camara\Index.cshtml" />
     <Content Include="Views\Software\Index.cshtml" />
+    <Content Include="Views\Visita\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

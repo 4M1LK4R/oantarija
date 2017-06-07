@@ -173,6 +173,7 @@ function LimpiarCampos() {
 function ListarReservas() {
     $.getJSON("/Reserva/ListarReservasFechaUsuario", { fecha: $('#selectFecha').val(), usu: $('#usu').val() }, function (cadena) {
         $("#tabla").html(cadena);
+        CrearDataTable();
     });
     $('#btnListar').show();
 };

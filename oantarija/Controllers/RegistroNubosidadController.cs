@@ -17,7 +17,7 @@ namespace oantarija.Controllers
         public ActionResult ListarRegisNub()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Fecha</th>";
@@ -31,8 +31,8 @@ namespace oantarija.Controllers
             foreach (var obj in BD.registro_nubosidad.ToList())
             {
                 cadena += "<tr>";
-                cadena += "<td>"+obj.fecha.Date+"</td>";
-                cadena += "<td>"+ obj.nubosidad + "</td>";
+                cadena += "<td>" + obj.fecha.Date + "</td>";
+                cadena += "<td>" + obj.nubosidad + "</td>";
                 cadena += "<td>" + obj.temperatura + "</td>";
                 if (obj.estado)
                 {
@@ -43,8 +43,8 @@ namespace oantarija.Controllers
                     cadena += "<td>Inactivo</td>";
                 }
                 cadena += "<td>";
-                cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar("+obj.id+");'></i></a>&nbsp;";  
-                cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar("+obj.id+");'></i></a>";
+                cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar(" + obj.id + ");'></i></a>&nbsp;";
+                cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar(" + obj.id + ");'></i></a>";
                 cadena += "</td>";
                 cadena += "</tr>";
             }
@@ -52,7 +52,7 @@ namespace oantarija.Controllers
             cadena += "</table>";
             return Json(cadena, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GuardarRegisNub(int id, string nubosidad,string temperatura, string observaciones, bool estado)
+        public ActionResult GuardarRegisNub(int id, string nubosidad, string temperatura, string observaciones, bool estado)
         {
             registro_nubosidad obj;
             string error = "";
@@ -89,15 +89,23 @@ namespace oantarija.Controllers
         {
             registro_nubosidad obj = BD.registro_nubosidad.Single(o => o.id == id);
 
-            var registro_nubosidad = new { fech = obj.fecha, nub = obj.nubosidad, tem = obj.temperatura, obs = obj.observaciones, estado = obj.estado};
+            var registro_nubosidad = new { fech = obj.fecha, nub = obj.nubosidad, tem = obj.temperatura, obs = obj.observaciones, estado = obj.estado };
             return Json(registro_nubosidad, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DeleteRegisNub(int id)
         {
-            registro_nubosidad obj = BD.registro_nubosidad.Single(o => o.id == id);
-            BD.registro_nubosidad.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                registro_nubosidad obj = BD.registro_nubosidad.Single(o => o.id == id);
+                BD.registro_nubosidad.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

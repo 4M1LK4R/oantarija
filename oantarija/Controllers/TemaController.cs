@@ -20,7 +20,7 @@ namespace oantarija.Controllers
         public ActionResult ListarTemas()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -35,7 +35,7 @@ namespace oantarija.Controllers
             {
                 cadena += "<tr>";
                 cadena += "<td>" + obj.nombre + "</td>";
-                cadena += "<td>" + obj.disertante1.persona.nombre + " "+ obj.disertante1.persona.apellido + "</td>";
+                cadena += "<td>" + obj.disertante1.persona.nombre + " " + obj.disertante1.persona.apellido + "</td>";
                 cadena += "<td>" + obj.sala1.nombre + "</td>";
                 //cadena += "<td>" + obj.fecharegistro + "</td>";
                 if (obj.estado)
@@ -61,21 +61,21 @@ namespace oantarija.Controllers
             string cadena = "<p class='left-align'>Disertante:</p>";
             cadena += "<select id='selectDisertante'>";
             cadena += "<option value='' disabled selected>(Seleccionar disertante)</option>";
-            foreach (var obj in BD.disertante.ToList().Where(o => o.persona.estado).OrderBy(o=>o.persona.nombre))
+            foreach (var obj in BD.disertante.ToList().Where(o => o.persona.estado).OrderBy(o => o.persona.nombre))
             {
-                cadena += "<option value=" + obj.id + ">" + obj.persona.nombre+" "+obj.persona.apellido+ "</option>";
+                cadena += "<option value=" + obj.id + ">" + obj.persona.nombre + " " + obj.persona.apellido + "</option>";
             }
             cadena += "</select>";
-            return Json(cadena,JsonRequestBehavior.AllowGet);
+            return Json(cadena, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ListarSalas()
         {
             string cadena = "<p class='left-align'>Sala:</p>";
             cadena += "<select id='selectSala'>";
             cadena += "<option value='' disabled selected>(Seleccionar sala)</option>";
-            foreach (var obj in BD.sala.ToList().Where(o => o.estado).OrderBy(o=>o.nombre))
+            foreach (var obj in BD.sala.ToList().Where(o => o.estado).OrderBy(o => o.nombre))
             {
-                cadena += "<option value=" + obj.id + ">" + obj.nombre +"</option>";
+                cadena += "<option value=" + obj.id + ">" + obj.nombre + "</option>";
             }
             cadena += "</select>";
             return Json(cadena, JsonRequestBehavior.AllowGet);
@@ -129,10 +129,18 @@ namespace oantarija.Controllers
         }
         public ActionResult DeleteTema(int id)
         {
-            tema obj = BD.tema.Single(o => o.id == id);
-            BD.tema.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                tema obj = BD.tema.Single(o => o.id == id);
+                BD.tema.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

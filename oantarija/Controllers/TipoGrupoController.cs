@@ -17,7 +17,7 @@ namespace oantarija.Controllers
         public ActionResult ListarTipoGrupo()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -54,7 +54,7 @@ namespace oantarija.Controllers
             string error = "";
             if (string.IsNullOrEmpty(nombre))
                 error = "El campo nombre esta vacio";
-           
+
             if (BD.curso.ToList().Exists(o => o.nombre == nombre) && id == 0)
                 error = "Ya existe un objeto con es nombre";
 
@@ -87,10 +87,18 @@ namespace oantarija.Controllers
         }
         public ActionResult DeleteTipoGrupo(int id)
         {
-            tipo_grupo obj = BD.tipo_grupo.Single(o => o.id == id);
-            BD.tipo_grupo.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                tipo_grupo obj = BD.tipo_grupo.Single(o => o.id == id);
+                BD.tipo_grupo.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

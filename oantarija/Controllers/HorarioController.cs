@@ -19,7 +19,7 @@ namespace oantarija.Controllers
         public ActionResult ListarHorarios()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -67,10 +67,10 @@ namespace oantarija.Controllers
             if (string.IsNullOrEmpty(h_fin))
                 error = "El campo hora fin esta vacio";
 
-            int i = int.Parse(DateTime.Parse(h_inicio).Hour.ToString()+ DateTime.Parse(h_inicio).Minute.ToString());
+            int i = int.Parse(DateTime.Parse(h_inicio).Hour.ToString() + DateTime.Parse(h_inicio).Minute.ToString());
             int f = int.Parse(DateTime.Parse(h_fin).Hour.ToString() + DateTime.Parse(h_fin).Minute.ToString());
 
-            if (i>f)
+            if (i > f)
                 error = "La hora de inicio no puede ser mayor a la hora de fin";
 
             if (BD.horario.ToList().Exists(o => o.nombre == nombre) && id == 0)
@@ -111,9 +111,9 @@ namespace oantarija.Controllers
         public string CambiarHora(string hora)
         {
             string h = "";
-            string[] split = hora.Split(new Char[] {':'});
+            string[] split = hora.Split(new Char[] { ':' });
 
-            for (int i = 0; i < split.Length-1; i++)
+            for (int i = 0; i < split.Length - 1; i++)
             {
                 h += split[i];
                 if (i == 0)
@@ -123,10 +123,18 @@ namespace oantarija.Controllers
         }
         public ActionResult DeleteHorario(int id)
         {
-            horario obj = BD.horario.Single(o => o.id == id);
-            BD.horario.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                horario obj = BD.horario.Single(o => o.id == id);
+                BD.horario.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

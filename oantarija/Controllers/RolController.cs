@@ -17,7 +17,7 @@ namespace oantarija.Controllers
         public ActionResult ListarRoles()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -81,9 +81,17 @@ namespace oantarija.Controllers
         }
         public ActionResult GetRol(int id)
         {
-            rol obj = BD.rol.Single(o => o.id == id);
-            var rol = new { nombre = obj.nombre, estado = obj.estado };
-            return Json(rol, JsonRequestBehavior.AllowGet);
+            try
+            {
+                rol obj = BD.rol.Single(o => o.id == id);
+                var rol = new { nombre = obj.nombre, estado = obj.estado };
+                return Json(rol, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
         public ActionResult DeleteRol(int id)
         {

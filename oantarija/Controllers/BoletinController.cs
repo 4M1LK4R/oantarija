@@ -27,7 +27,7 @@ namespace oantarija.ContBoletinlers
             }
 
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -45,7 +45,7 @@ namespace oantarija.ContBoletinlers
             {
                 cadena += "<tr>";
                 cadena += "<td>" + obj.nombre + "</td>";
-                cadena += "<td>" + obj.fecha_registro.Date + "</td>";
+                cadena += "<td>" + obj.fecha_registro.ToShortDateString() + "</td>";
                 cadena += "<td><a class='btn btn-floating cyan pulse' href='"+obj.url+"' target='_blank'><i class='icon-doc-text-inv'></i></a></td>";
                 if (u.rol == 1)
                 {
@@ -121,10 +121,20 @@ namespace oantarija.ContBoletinlers
         }
         public ActionResult DeleteBoletin(int id)
         {
-            boletin obj = BD.boletin.Single(o => o.id == id);
-            BD.boletin.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                boletin obj = BD.boletin.Single(o => o.id == id);
+                BD.boletin.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            
         }
     }
 }

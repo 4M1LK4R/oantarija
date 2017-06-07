@@ -17,7 +17,7 @@ namespace oantarija.Controllers
         public ActionResult ListarCamara()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -92,10 +92,18 @@ namespace oantarija.Controllers
         }
         public ActionResult DeleteCamara(int id)
         {
-            camara obj = BD.camara.Single(o => o.id == id);
-            BD.camara.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                camara obj = BD.camara.Single(o => o.id == id);
+                BD.camara.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace oantarija.Controllers
         public ActionResult ListarDisertantes()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -98,10 +98,18 @@ namespace oantarija.Controllers
         }
         public ActionResult DeleteDisertante(int id)
         {
-            disertante obj = BD.disertante.Single(o => o.id == id);
-            BD.disertante.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                disertante obj = BD.disertante.Single(o => o.id == id);
+                BD.disertante.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

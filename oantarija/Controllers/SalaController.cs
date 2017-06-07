@@ -18,7 +18,7 @@ namespace oantarija.Controllers
         public ActionResult ListarSalas()
         {
             string cadena = "";
-            cadena = "<table id='data' class='display highlight' cellspacing='0' hidden>";
+            cadena = "<table id='data' class='centered scrollable display highlight' cellspacing='0' hidden>";
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Nombre</th>";
@@ -31,8 +31,8 @@ namespace oantarija.Controllers
             foreach (var obj in BD.sala.ToList())
             {
                 cadena += "<tr>";
-                cadena += "<td>"+obj.nombre+"</td>";
-                cadena += "<td>"+ obj.capacidad + "</td>";
+                cadena += "<td>" + obj.nombre + "</td>";
+                cadena += "<td>" + obj.capacidad + "</td>";
                 if (obj.estado)
                 {
                     cadena += "<td>Activo</td>";
@@ -42,8 +42,8 @@ namespace oantarija.Controllers
                     cadena += "<td>Inactivo</td>";
                 }
                 cadena += "<td>";
-                cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar("+obj.id+");'></i></a>&nbsp;";  
-                cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar("+obj.id+",\"" + obj.nombre + "\");'></i></a>";
+                cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar(" + obj.id + ");'></i></a>&nbsp;";
+                cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar(" + obj.id + ",\"" + obj.nombre + "\");'></i></a>";
                 cadena += "</td>";
                 cadena += "</tr>";
             }
@@ -61,7 +61,7 @@ namespace oantarija.Controllers
             if (string.IsNullOrEmpty(capacidad.ToString()))
                 error = "El campo cantidad esta vacio";
 
-            if (BD.sala.ToList().Exists(o => o.nombre == nombre)&&id==0)
+            if (BD.sala.ToList().Exists(o => o.nombre == nombre) && id == 0)
                 error = "Ya existe un objeto con es nombre";
 
 
@@ -91,15 +91,23 @@ namespace oantarija.Controllers
         public ActionResult GetSala(int id)
         {
             sala obj = BD.sala.Single(o => o.id == id);
-            var sala = new { nombre = obj.nombre, capacidad = obj.capacidad, estado = obj.estado};
+            var sala = new { nombre = obj.nombre, capacidad = obj.capacidad, estado = obj.estado };
             return Json(sala, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DeleteSala(int id)
         {
-            sala obj = BD.sala.Single(o => o.id == id);
-            BD.sala.Remove(obj);
-            BD.SaveChanges();
-            return Json(null, JsonRequestBehavior.AllowGet);
+            try
+            {
+                sala obj = BD.sala.Single(o => o.id == id);
+                BD.sala.Remove(obj);
+                BD.SaveChanges();
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

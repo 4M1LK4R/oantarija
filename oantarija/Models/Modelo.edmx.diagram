@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7bb81e234749493eae21ff0814a9e802" Name="Diagram1">
+      <Diagram DiagramId="80af86b0fd07443e8bbf9bde4714e48a" Name="Diagram1">
         <EntityTypeShape EntityType="oantarijaModel.actividad_solar" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="oantarijaModel.adicionar_reserva" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="oantarijaModel.boletin" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />

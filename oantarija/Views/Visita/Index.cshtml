@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Visita";
+}
+<div class="container">
+    <div class="row">
+        <center>
+            <h3 class="white-text">VISITAS</h3>
+        </center>
+        <hr>
+        <br>
+        <div class="col s2 m1 l1">
+            <a class="btn btn-floating pulse light-blue darken-4 pulse"><i class="icon-calendar"></i><a>
+        </div>
+        <div class="col s6 m8 l9 white-text">
+            <input type="date" id="selectFecha" class="datepicker">
+        </div>
+        <div class="col s4 m3 l2">
+            <a id="btnFecha" class="btn light-blue darken-4 waves-effect waves-light"><i class="icon-search"></i>Buscar</a>
+        </div>
+        <div class="col s12 m12 l12 white-text">
+            Reservas disponibles para:
+            <h4 class="center-align" id="campoFecha">fecha</h4>
+        </div>
+
+        <div class="row">
+            <br>
+            <div class="col s12 m12 l12">
+                <a id="btnListar" onclick="CrearDataTable();" class="btn teal waves-effect"><i class="icon-list-numbered"></i>Mostrar Reservas</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m1 l1"></div>
+    <div class="col s12 m10 l10 white">
+        <div id="tabla" class="amk">
+        </div>
+    </div>
+    <div class="col s12 m1 l1"></div>
+</div>
+
+<div id="modalDatos" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <center>
+            <p class="light-blue-text text-darken-4 flow-text">DATOS DE VISITA</p>
+            <div class="row">
+                <input id="id" type="text" hidden value="0">
+                <input id="usu" type="text" hidden value="@User.Identity.Name">
+                <div class="input-field col s12">
+                    <select id="hInicio">
+                        <option value="" disabled selected>(Seleccionar Hora)</option>
+                        <optgroup label="Mañana">
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                        </optgroup>
+                        <optgroup label="Mediodía">
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                        </optgroup>
+                        <optgroup label="Tarde">
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                        </optgroup>
+                        <optgroup label="Noche">
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                        </optgroup>
+                    </select>
+                    <label>Hora Entrada</label>
+                </div>
+                <div class="input-field col s12">
+                    <select id="hFin">
+                        <option value="" disabled selected>(Seleccionar Hora)</option>
+                        <optgroup label="Mañana">
+                            <option value="07:00">07:00</option>
+                            <option value="07:30">07:30</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:30">08:30</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:30">09:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                        </optgroup>
+                        <optgroup label="Mediodía">
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                        </optgroup>
+                        <optgroup label="Tarde">
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                        </optgroup>
+                        <optgroup label="Tarde">
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:30">19:30</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:30">20:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:30">21:30</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:30">22:30</option>
+                        </optgroup>
+                    </select>
+                    <label>Hora Salida</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                    <i class="icon-users-1 prefix"></i>
+                    <input id="cantidad" type="text">
+                    <label for="cantidad">Cantidad de Personas (Max. 50):</label>
+                </div>
+                <div class="input-field col s12 m12 l12">
+                    <i class="icon-right-dir prefix"></i>
+                    <input id="proposito" type="text">
+                    <label for="proposito">Proposito:</label>
+                </div>
+            </div>
+            <p class="grey-text">Vehiculo:</p>
+            <div class="row">
+                <div class="col s6 m6 l6">
+                    <input name="group1" type="radio" id="activo" />
+                    <label for="activo">SI</label>
+                </div>
+                <div class="col s6 m6 l6">
+                    <input name="group1" type="radio" id="inactivo" />
+                    <label for="inactivo">No</label>
+                </div>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <i class="icon-right-dir prefix"></i>
+                <input id="placa" type="text">
+                <label for="placa">Placa del Vehiculo:</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <i class="icon-right-dir prefix"></i>
+                <input id="tipo_v" type="text">
+                <label for="tipo_v">Tipo Vehiculo:</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <i class="icon-right-dir prefix"></i>
+                <input id="color_v" type="text">
+                <label for="color_v">Color Vehiculo:</label>
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <i class="icon-right-dir prefix"></i>
+                <input id="procedencia" type="text">
+                <label for="procedencia">Procedencia:</label>
+            </div>
+        </center>
+    </div>
+    <div class="modal-footer blue-grey darken-4">
+        <a id="aceptar" class="waves-effect waves-green btn-flat green white-text">Aceptar</a>
+        <a id="cancelar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Cancelar</a>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/visita")
+}
