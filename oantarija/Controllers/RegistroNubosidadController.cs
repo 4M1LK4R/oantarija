@@ -21,6 +21,8 @@ namespace oantarija.Controllers
             cadena += "<thead class='light-blue darken-4 white-text z-depth-3'>";
             cadena += "<tr>";
             cadena += "<th>Fecha</th>";
+            cadena += "<th>Hora</th>";
+            cadena += "<th>Usuario</th>";
             cadena += "<th>Nubosidad</th>";
             cadena += "<th>Temperatura</th>";
             cadena += "<th>Estado</th>";
@@ -32,6 +34,8 @@ namespace oantarija.Controllers
             {
                 cadena += "<tr>";
                 cadena += "<td>" + obj.fecha.Date + "</td>";
+                cadena += "<td>" + obj.hora.ToString() + "</td>";
+                cadena += "<td>" + obj.usuario1.username + "</td>";
                 cadena += "<td>" + obj.nubosidad + "</td>";
                 cadena += "<td>" + obj.temperatura + "</td>";
                 if (obj.estado)
@@ -52,7 +56,7 @@ namespace oantarija.Controllers
             cadena += "</table>";
             return Json(cadena, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GuardarRegisNub(int id, string nubosidad, string temperatura, string observaciones, bool estado)
+        public ActionResult GuardarRegisNub(int id,string usu , string nubosidad,string hora, string temperatura, string observaciones, bool estado)
         {
             registro_nubosidad obj;
             string error = "";
@@ -65,6 +69,8 @@ namespace oantarija.Controllers
                     obj = new registro_nubosidad();
                     obj.fecha = DateTime.Now.Date;
                     obj.nubosidad = nubosidad;
+                    obj.usuario = id_usu(usu);
+                    obj.hora = TimeSpan.Parse(hora);
                     obj.temperatura = temperatura;
                     obj.observaciones = observaciones;
                     obj.estado = estado;
@@ -75,6 +81,7 @@ namespace oantarija.Controllers
                 {
                     obj = BD.registro_nubosidad.Single(o => o.id == id);
                     obj.fecha = DateTime.Now.Date;
+                    obj.hora = TimeSpan.Parse(hora);
                     obj.nubosidad = nubosidad;
                     obj.temperatura = temperatura;
                     obj.observaciones = observaciones;
@@ -89,7 +96,7 @@ namespace oantarija.Controllers
         {
             registro_nubosidad obj = BD.registro_nubosidad.Single(o => o.id == id);
 
-            var registro_nubosidad = new { fech = obj.fecha, nub = obj.nubosidad, tem = obj.temperatura, obs = obj.observaciones, estado = obj.estado };
+            var registro_nubosidad = new { fech = obj.fecha, hor = CambiarHora(obj.hora.ToString()), nub = obj.nubosidad, tem = obj.temperatura, obs = obj.observaciones, estado = obj.estado };
             return Json(registro_nubosidad, JsonRequestBehavior.AllowGet);
         }
         public ActionResult DeleteRegisNub(int id)
@@ -106,6 +113,32 @@ namespace oantarija.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
 
+        }
+        public string CambiarHora(string hora)
+        {
+            string h = "";
+            string[] split = hora.Split(new Char[] { ':' });
+
+            for (int i = 0; i < split.Length - 1; i++)
+            {
+                h += split[i];
+                if (i == 0)
+                    h += ":";
+            }
+            return h;
+        }
+        private int id_usu(string usuario)
+        {
+            int id = 0;
+            if (usuario == "admin@admin")
+            {
+                id = 1;
+            }
+            else
+            {
+                id = BD.usuario.Single(o => o.username == usuario).id;
+            }
+            return id;
         }
     }
 }

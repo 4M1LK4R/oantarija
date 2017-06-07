@@ -45,6 +45,11 @@ function EvaluarVacios() {
         Materialize.toast('El campo nubosidad no puede estar vacio!', 8000);
         return false;
     }
+    if ($('#hora').val() == null) {
+        Materialize.toast('El campo hora no puede estar vacio!', 8000);
+        return false;
+    }
+    
     if ($('#temperatura').val() == '') {
         Materialize.toast('El campo temperatura no puede estar vacio!', 8000);
         return false;
@@ -63,7 +68,7 @@ function Guardar() {
     var nub = $('#nubosidad').val();
     var tem = $('#temperatura').val();
     var obs = $('#observaciones').val();
-    $.getJSON("/RegistroNubosidad/GuardarRegisNub", { id: i, nubosidad: nub, temperatura: tem, observaciones: obs, estado: est }, function (e) {
+    $.getJSON("/RegistroNubosidad/GuardarRegisNub", { id: i, usu:$('#usu').val(),hora:$('#hora').val(),nubosidad: nub, temperatura: tem, observaciones: obs, estado: est }, function (e) {
         if (e != "") {
             Materialize.toast(e, 8000);
         }
@@ -86,6 +91,8 @@ function Editar(id) {
         $("#nubosidad").val(obj.nub);
         $("#temperatura").val(obj.tem);
         $("#observaciones").val(obj.obs);
+        $('#hora').val(obj.hor);
+        $('select').material_select();
         est = obj.estado;
         CargarEstadoEnChck(est);
         Materialize.updateTextFields();
@@ -99,6 +106,8 @@ function LimpiarCampos() {
     $("#nubosidad").val('');
     $("#temperatura").val('');
     $("#observaciones").val('');
+    $('#hora').val('');
+    $('select').material_select();
 };
 
 function ListarRegisNub() {

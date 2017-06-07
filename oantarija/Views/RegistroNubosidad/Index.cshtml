@@ -39,11 +39,25 @@
             </div>
             <div class="row">
                 <input id="id" type="text" hidden value="0">
+                <input id="usu" type="text" hidden value="@User.Identity.Name">
                 <div class="input-field col s12 m12 l12">
                     <i class="icon-right-dir prefix"></i>
                     <input id="nubosidad" type="text">
                     <label for="nubosidad">Nubosidad</label>
                 </div>
+
+                <div class="input-field col s12">
+                    <select id="hora">
+                        <option value="" disabled selected>(Seleccionar Hora)</option>
+                        <option value="08:00">08:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="22:00">22:00</option>
+                    </select>
+                    <label>Hora:</label>
+                </div>
+
                 <div class="input-field col s12 m12 l12">
                     <i class="icon-right-dir prefix"></i>
                     <input id="temperatura" type="text">
