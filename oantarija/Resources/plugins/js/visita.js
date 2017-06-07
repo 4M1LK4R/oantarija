@@ -88,6 +88,7 @@ function Guardar() {
         usuario: $('#usu').val(),
         estado: est
     };
+
     //Guardar(int id, string hora_entrada, string hora_salida, int cantidad, 
     //string proposito, bool vehiculo, string tipo_v, string placa_v, string 
     //color_v, string procedencia, string usuario, bool estado)
@@ -107,26 +108,39 @@ function Guardar() {
 
 function Editar(id) {
     var o = { id: id };
+    console.log(id);
     $.getJSON("/Visita/Get", o, function (obj) {
-        $('#id').val(id);
-        $('#hInicio').val(obj.hora_entrada);
-        $('#hFin').val(obj.hora_salida);
-        $('#cantidad').val(obj.cantidad_personas);
-        $('#proposito').val(obj.proposito);
-        $('#tipo_v').val(obj.tipo_vehiculo);
-        $('#placa').val(obj.placa_vehiculo);
-        $('#color_v').val(obj.color_vehiculo);
-        $('#procedencia').val(obj.procedencia);
-        CargarEstadoEnChck(obj.vehiculo);
-        $('select').material_select();
-        Materialize.updateTextFields();
+        
+        if (o == 'vacio') {
+            $('#id').val(id);
+        }
+        else {
+            $('#id').val(id);
+            $('#hInicio').val(obj.hora_entrada);
+            $('#hFin').val(obj.hora_salida);
+            $('#cantidad').val(obj.cantidad_personas);
+            $('#proposito').val(obj.proposito);
+            $('#tipo_v').val(obj.tipo_vehiculo);
+            $('#placa').val(obj.placa_vehiculo);
+            $('#color_v').val(obj.color_vehiculo);
+            $('#procedencia').val(obj.procedencia);
+            CargarEstadoEnChck(obj.vehiculo);
+            $('select').material_select();
+            Materialize.updateTextFields();
+
+        }
+
+        
+
+        
+
     });
     $('#campo_estado').show();
     $('#modalDatos').modal('open');
 };
 
 function LimpiarCampos() {
-    $('#id').val(0);
+    //$('#id').val(0);
     $('#hInicio').val();
     $('#hFin').val();
     $('#cantidad').val();

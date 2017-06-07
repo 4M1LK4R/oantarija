@@ -111,23 +111,32 @@ namespace oantarija.Controllers
         }
         public ActionResult Get(int id)
         {
-            visita obj = BD.visita.Single(o => o.id == id);
-            var visita = new
+            if (!BD.visita.ToList().Exists(o=>o.id==id))
             {
-                fecha_registro = obj.fecha_registro,
-                hora_entrada = CambiarHora(obj.hora_entrada.ToString()),
-                hora_salida = CambiarHora(obj.hora_salida.ToString()),
-                cantidad_personas = obj.cantidad_personas,
-                proposito = obj.proposito,
-                vehiculo = obj.vehiculo,
-                placa_vehiculo = obj.placa_vehiculo,
-                tipo_vehiculo = obj.tipo_vehiculo,
-                color_vehiculo = obj.color_vehiculo,
-                procedencia = obj.procedencia,
-                usuario = obj.usuario,
-                estado = obj.estado
-            };
-            return Json(visita, JsonRequestBehavior.AllowGet);
+                return Json("vacio", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                visita obj = BD.visita.Single(o => o.id == id);
+                var visita = new
+                {
+                    fecha_registro = obj.fecha_registro,
+                    hora_entrada = CambiarHora(obj.hora_entrada.ToString()),
+                    hora_salida = CambiarHora(obj.hora_salida.ToString()),
+                    cantidad_personas = obj.cantidad_personas,
+                    proposito = obj.proposito,
+                    vehiculo = obj.vehiculo,
+                    placa_vehiculo = obj.placa_vehiculo,
+                    tipo_vehiculo = obj.tipo_vehiculo,
+                    color_vehiculo = obj.color_vehiculo,
+                    procedencia = obj.procedencia,
+                    usuario = obj.usuario,
+                    estado = obj.estado
+                };
+                return Json(visita, JsonRequestBehavior.AllowGet);
+            }
+
+
         }
         public string CambiarHora(string hora)
         {
