@@ -41,6 +41,78 @@
     <div class="col s12 m1 l1"></div>
 </div>
 
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large teal" onclick="Nuevo_r();">
+        <i class="large icon-plus-1"></i>
+    </a>
+</div>
+
+
+    <!-- Modal Reserva-->
+<div id="modalDatos_r" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <center>
+            <p class="flow-text light-blue-text text-darken-4">VISITA DIRECTA</p>
+            <div class="row">
+                <input id="id_r" type="text" hidden value="0">
+                <input id="usu_r" type="text" hidden value="@User.Identity.Name">
+                <!--Fecha-->
+                <div class="input-field col s12 m12 l12">
+                    <i class="icon-calendar-1 prefix"></i>
+                    <input type="date" id="selectFechaModal_r" class="datepicker">
+                    <label for="selectFechaModal">Fecha:</label>
+                </div>
+                <!--Horario-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="input-field col s12">
+                            <p><i class="icon-clock"></i>Horario:</p>
+                            <div id="campoHorario"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Tema(s)-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="input-field col s12">
+                            <p><i class="icon-book"></i>Tema(s):</p>
+                            <div id="campoTema"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Cantidad Personas-->
+                <div class="input-field col s12 m12 l12">
+                    <i class="icon-users-1 prefix"></i>
+                    <input id="cantidad_r" type="text">
+                    <label for="cantidad_r">Cantidad de Personas (Max. 50):</label>
+                </div>
+                <!--TipoGrupo-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="input-field col s12">
+                            <p><i class="icon-flow-cascade"></i>Tipo de Grupo:</p>
+                            <div id="campoTG"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+    <div class="modal-footer blue-grey darken-4">
+        <a id="aceptar_r" class="waves-effect waves-green btn-flat green white-text">Aceptar</a>
+        <a id="cancelar_r" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Cancelar</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div id="modalDatos" class="modal modal-fixed-footer">
     <div class="modal-content">
         <center>

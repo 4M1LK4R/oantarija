@@ -1,5 +1,8 @@
 var est = true;
 $(document).ready(function () {
+    ListarHorarios();
+    ListarTemas();
+    ListarTG();
     $('#cantidad').numeric();
 });
 
@@ -207,3 +210,130 @@ function mostrarFechaActual() {
     var fecha = f.getDate() + " " + meses[f.getMonth()] + ", " + f.getFullYear();
     $('#campoFecha').html(fecha);
 };
+
+
+
+
+
+//Reserva Rapida
+
+function Nuevo_r() {
+    LimpiarCampos_r();
+    est = true;
+    CargarEstadoEnChck(est);
+    $('#modalDatos_r').modal('open');
+};
+
+
+
+$('#aceptar_r').click(function () {
+    if (EvaluarVacios_r()) {
+        Guardar_r();
+    }
+});
+$('#cancelar_r').click(function () {
+    LimpiarCampos();
+    $('#modalDatos_r').modal('close');
+});
+function EvaluarVacios_r() {
+    if ($('#selectFechaModal_r').val() == '') {
+        Materialize.toast('El campo fecha no puede estar vacio!', 8000);
+        return false;
+    }
+    if ($('#selectHorario').val() == null) {
+        Materialize.toast('Debe seleccionar un horario!', 8000);
+        return false;
+    }
+    if ($('#selectTema').val() == null) {
+        Materialize.toast('Debe seleccionar un tema!', 8000);
+        return false;
+    }
+    if ($('#cantidad_r').val() == '') {
+        Materialize.toast('El campo cantidad no puede estar vacio!', 8000);
+        return false;
+    }
+    if ($('#cantidad_r').val() > 50) {
+        Materialize.toast('El nro. maximo de personas es 50!', 8000);
+        return false;
+    }
+
+    if ($('#selectTG').val() == null) {
+        Materialize.toast('Debe seleccionar un tipo de grupo!', 8000);
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+function Guardar_r() {
+
+    var i = $('#id_r').val();
+    var fech = $('#selectFechaModal_r').val();
+    var hor = $('#selectHorario').val();
+    var tem = $('#selectTema').val();
+    var can = $('#cantidad_r').val();
+    var tipgru = $('#selectTG').val();
+    var usu = $('#usu_r').val();
+    $.getJSON("/Reserva/GuardarReserva", { id: i, fecha: fech, horario: hor, temas: tem.toString(), cantidad: can, tg: tipgru, usuario: usu, estado: true }, function (e) {
+        if (e != "") {
+            if (e.err == "proponer") {
+                //$('#idReservaProponer').val(e.iid);
+                //$('#Disponible').val((50 - e.can));
+                //var cadena = '<h5>Ya existe una reserva para la <b>Fecha: </b>' + e.fech + ' en el <br><b>Horario: </b>' + e.hor + '</h5>';
+                //cadena += '<br><b>Con:</b>';
+                //cadena += '<br><b>Tema(s): </b>' + e.tms;
+                //cadena += '<br><b>Nro Personas: </b>' + e.can;
+                //cadena += '<br><h4>Desea sumarse a la visita?</h4>';
+                //cadena += '<br><b>Cupos disponibles: <b>' + (50 - e.can);
+                //$('#ContenidoProponer').html(cadena);
+                //$('#cantidadProponer').val('');
+                //$('#modalProponer').modal('open');
+                Materialize.toast('Ya existe una reserva para esa fecha y horario!', 8000);
+            }
+            else {
+                Materialize.toast(e, 8000);
+            }
+        }
+        else {
+            Materialize.toast('Registro exitoso!', 8000);
+
+            LimpiarCampos_r();
+            $('#modalDatos_r').modal('close');
+            //ListarReservas();
+        }
+    });
+    //ListarReservas();
+};
+
+function LimpiarCampos_r() {
+    $('#id_r').val(0);
+    $('#cantidad_r').val('');
+    $('#selectFechaModal_r').val('');
+    $('#selectHorario').val('');
+    $('#selectTG').val('');
+    $('select').material_select();
+};
+
+function ListarHorarios() {
+    $.getJSON("/Reserva/ListarHorarios", function (cadena) {
+        $("#campoHorario").html(cadena);
+        $('select').material_select();
+    });
+}
+function ListarTemas() {
+    $.getJSON("/Reserva/ListarTemas", function (cadena) {
+        $('#campoTema').html(cadena);
+        $('select').material_select();
+    });
+};
+function ListarTG() {
+    $.getJSON("/Reserva/ListarTG", function (cadena) {
+        $('#campoTG').html(cadena);
+        $('select').material_select();
+    });
+};
+
+
+
+
+
