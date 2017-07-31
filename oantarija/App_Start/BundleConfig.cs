@@ -87,6 +87,9 @@ namespace oantarija
             bundles.Add(new ScriptBundle("~/bundles/visita").Include(
             "~/Resources/plugins/js/visita.js"
             ));
+            bundles.Add(new ScriptBundle("~/bundles/notificacion").Include(
+            "~/Resources/plugins/js/notificacion.js"
+            ));
 
         }
     }

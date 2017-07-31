@@ -334,6 +334,7 @@
     <Content Include="Resources\plugins\jquery\jquery-1.11.2.min.js" />
     <Content Include="Resources\plugins\jquery\jquery-3.2.1.min.js" />
     <Content Include="Resources\plugins\jquery\jquery.numeric.js" />
+    <Content Include="Resources\plugins\js\notificacion.js" />
     <Content Include="Resources\plugins\js\visita.js" />
     <Content Include="Resources\plugins\js\software.js" />
     <Content Include="Resources\plugins\js\cuenta.js" />

@@ -91,3 +91,9 @@
         <div class="parallax"><img src="~/Resources/images/parallax/3parallax.jpg" alt="Unsplashed background img 3"></div>
     </div>
 </div>
+
+
+<input id="usu" type="text" hidden value="@User.Identity.Name">
+@section Scripts {
+    @Scripts.Render("~/bundles/notificacion")
+}

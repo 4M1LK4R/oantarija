@@ -19,12 +19,13 @@ namespace oantarija.Controllers
             reserva obj;
 
             string error = "";
-            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == id_usu(usuario)) && id == 0)
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == id_usu(usuario)) && id == 0 && BD.reserva.Single(o => o.id == id).tipo_grupo == tg)
             {
                 error = "Ya tienes una reserva para esta fecha y horario";
                 return Json(error, JsonRequestBehavior.AllowGet);
             }
-            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == id_usu(usuario)))
+            int tggg = BD.reserva.Single(o => o.id == id).tipo_grupo;
+            if (BD.reserva.ToList().Exists(o => o.fecha == DateTime.Parse(fecha).Date && o.horario == horario && o.usuario == id_usu(usuario)) && BD.reserva.Single(o=>o.id==id).tipo_grupo== tg)
             {
                 error = "Ya tienes una reserva para esta fecha y horario";
                 return Json(error, JsonRequestBehavior.AllowGet);
@@ -175,7 +176,7 @@ namespace oantarija.Controllers
                 cadena += "<td>" + obj.cantidad + "</td>";
                 cadena += "<td>" + obj.tipo_grupo1.nombre + "</td>";
                 cadena += "<td>";
-                if (obj.usuario == id_usu(usu))
+                if (obj.usuario == id_usu(usu)|| rol_usu(usu)==1)
                 {
                     cadena += "<a class='waves-effect waves-light btn btn-floating blue'><i class='icon-pencil-1' onclick='Editar(" + obj.id + ");'></i></a>";
                     cadena += "<a class='waves-effect waves-light btn btn-floating red'><i class='icon-trash' onclick='ModalConfirmar(" + obj.id + ");'></i></a>";
@@ -315,6 +316,35 @@ namespace oantarija.Controllers
                 id = BD.usuario.Single(o => o.username == usuario).id;
             }
             return id;
+        }
+        private int rol_usu(string usuario)
+        {
+            int rol = 0;
+            if (usuario == "admin@admin")
+            {
+                rol = 1;
+            }
+            else
+            {
+                rol = BD.usuario.Single(o => o.username == usuario).rol;
+            }
+            return rol;
+        }
+        public ActionResult Notificacion(string usuario)
+        {
+
+            if (rol_usu(usuario)==1)
+            {
+
+                int nro = 0;
+                nro = BD.reserva.ToList().Where(o => o.fecha == DateTime.Now.Date).Count();
+                return Json(nro, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }
